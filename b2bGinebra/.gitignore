@@ -4,6 +4,7 @@
 .settings
 .DS_Store
 .project
+.factorypath
 /WebContent/META-INF
 /Users
 *.DS_Store
