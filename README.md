@@ -1,6 +1,11 @@
 # b2bGinebra-v2
 
+Requirements:
 
+* wildfly 11.0.0.Final: http://wildfly.org/downloads/
+
+
+Git commands
 
 1. Create branch and switch to it
 ```
