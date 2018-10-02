@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario">
+		
+		<b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+   
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="login-card">
+                        <div class="page-header">
+                            <h2 class="text-center">Comercio Ginebrino</h2>
+                        </div>
+                        <img class="img-responsive profile-img-card" src="assets/img/avatar_2x.jpg"/>
+                        <p class="profile-name-card"> </p>
+   
+                        <b:inputText placeholder="Correo" binding="#{configuracionVista.txtCorreo}" type="email"/>
+                       	<div align="center">
+                       		 <b:commandButton look="primary" value="Recuperar Password" style="width: 100%" 
+                       		 				onclick="ajax:configuracionVista.enviarCorreoResetPassword();"/>
+                        	</div>
+                        
+                        
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+    
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    
+	   
+   
+</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

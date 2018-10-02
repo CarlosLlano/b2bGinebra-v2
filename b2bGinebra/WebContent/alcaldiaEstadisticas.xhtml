@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form>
+    
+    <div>
+        <div class="container">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Estadisticas </h2>
+                 </div>
+            </div>
+            
+            <div class="col-md-6">
+	            <hf:chart type="column" title="Negocios">
+				    <hf:chartSerie name="cantidad Negocios" value="#{dashboardVista.estadisticaNegocios}" var="point" 
+				    				  point="#{point.cantidad}" tickLabel="#{point.nombre}" />
+				</hf:chart>
+			</div>
+			 <div class="col-md-6">
+	            <hf:chart type="pie" title="Tipos de negocios mas populares">
+				    <hf:chartSerie name="Cantidad" value="#{dashboardVista.estadisticaTipoNegocio}" var="point" 
+				    				  point="#{point.cantidad}" tickLabel="#{point.nombre}" />
+				</hf:chart>
+			</div>
+			<div class="col-md-6">
+	            <hf:chart type="column" title="Usuarios">
+				    <hf:chartSerie name="Estado Usuarios" value="#{dashboardVista.estadisticaUsuarios}" var="point" 
+				    				point="#{point.cantidad}" tickLabel="#{point.nombre}"/>
+				</hf:chart>
+			</div>
+			<div class="col-md-6">
+	            <hf:chart type="column" title="Solicitudes">
+				    <hf:chartSerie name="Estado Solicitudes" value="#{dashboardVista.estadisticaSolicitudes}" var="point" 
+				    				point="#{point.cantidad}" tickLabel="#{point.nombre}"/>
+				</hf:chart>
+			</div>
+			<br />
+			<br />
+			<br />
+			
+			<!--
+			<div class="col-md-12">
+				<div class="container">   
+				        <b:dataTable value="#{dashboardVista.negocios}" var="negocio">
+							<b:dataTableColumn value="#{negocio.razonSocial}" label="Razon Social"/>
+							<b:dataTableColumn value="#{negocio.tipoNegocio.nombre}" label="Tipo de Negocio"/>
+							<b:dataTableColumn value="#{negocio.direccion}" label="Direccion"/>
+							<b:dataTableColumn value="#{negocio.telefono}" label="Telefono"/>
+							<b:dataTableColumn value="#{negocio.usuario.nombre}" label="Representante"/>
+							<b:dataTableColumn label="Detalle">
+				            <h:button value="Ver" class="btn btn-primary" outcome="detalleNegocio.xhtml?faces-redirect=true"  >
+				            		<f:param id="negocio" name="negocio" value="#{negocio.idNegocio}"/>
+				            </h:button>
+				       		</b:dataTableColumn>
+						</b:dataTable>
+				</div>
+             </div>  
+              -->
+            
+        </div>
+    </div>
+    <!--
+    <div>
+        <div class="container">
+            <div class="row" style="height:135px;background-color:transparent;">
+                <div class="col-lg-4 col-lg-offset-1 col-md-6">
+                    <b:commandButton class="btn btn-block" value="Cargar" look="primary" style="height:32px;margin:6px;"/>
+                </div>
+                <div class="col-lg-4 col-lg-offset-1 col-md-6">
+                    <b:commandButton class="btn btn-block" value="Descargar" look="primary" style="height:32px;margin:6px;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+   -->
+    
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script src="assets/js/Profile-Edit.js"></script>
+    <script src="assets/js/Sidebar-Menu.js"></script>
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+
+</html>

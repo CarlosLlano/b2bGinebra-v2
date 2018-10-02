@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario">
+    
+    <p:growl id="top"/>
+    <b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+    
+    <div>
+        <div class="container">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Administrador de estados de usuarios </h2>
+                 </div>
+            </div>
+            
+            <h1></h1>   
+		    <b:container fluid="true"> 
+			   <b:row>
+			   		<h:panelGroup id="somEstadoUsuarios">
+					    <b:selectOneMenu binding="#{configuracionVista.somEstadoUsuarios}" large-screen="one-third" label="Estado" >
+							<f:selectItem itemValue="-1" itemLabel="TODOS" />
+							<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
+							<f:ajax listener="#{configuracionVista.somEstadoUsuariosOnChange}" render="tabla" />
+						</b:selectOneMenu>
+					</h:panelGroup>
+				</b:row>
+		    </b:container>
+		     
+			<div class="container">   
+			        <b:dataTable id="tabla" value="#{configuracionVista.usuarios}" var="usu" class="editableTable">
+			        		<b:dataTableColumn label="Estado">
+			        		  	<b:selectOneMenu binding="#{configuracionVista.somEstadoSeleccionado}" rendered="#{configuracionVista.usuarioSeleccionado eq usu}">
+								<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
+							</b:selectOneMenu>
+							<h:outputText value="#{usu.estado.nombre}" rendered="#{configuracionVista.usuarioSeleccionado ne usu}"/>
+			        		</b:dataTableColumn>
+			        		<b:dataTableColumn value="#{usu.nombre}" label="Nombre" />
+			        		<b:dataTableColumn value="#{usu.correo}" label="Correo"/>
+						<b:dataTableColumn value="#{usu.telefono}" label="Telefono"/>
+						<b:dataTableColumn value="#{usu.direccion}" label="Direccion"/>
+						<b:dataTableColumn value="#{usu.negocios[0].razonSocial}" label="Negocio"/>
+						<b:dataTableColumn label="Opciones">
+						
+							<b:commandButton value="Editar" onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);" look="primary"
+										rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
+										update="@(.editableTable)"/>
+							<b:commandButton value="Guardar" onclick="ajax:configuracionVista.guardarEstadoUsuario();" look="success"
+										rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
+										update="@(.editableTable)"/>
+						
+						</b:dataTableColumn>
+					</b:dataTable>
+			</div>
+
+			
+			
+			
+			
+            
+        </div>
+    </div>
+    
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	
+	
+	
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+
+</html>

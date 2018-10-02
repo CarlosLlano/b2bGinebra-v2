@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui" xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml">
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario" enctype="multipart/form-data">
+		
+		<b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+		<div>
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="text-center">Notificaciones </h2>
+
+					</div>
+				</div>
+				<br/>
+				<br/>
+				<b:tabView activeIndex="2" id="tabView">
+				  <b:tab title="Mis Notificaciones">
+				  		<br />
+				  		<br />
+				    		<!-- FORMULARIO -->
+						<div align="left">
+							<b:commandButton value="Agregar" look="primary" onclick="ajax:notificacionVista.crear();" update="growl"/>
+						</div>
+						<br />
+						<h:panelGroup id="infoNot">
+							<div class="col-md-6">
+								<b:panel title="Datos" look="primary" collapsible="false">
+									<b:inputText placeholder="Nombre" value="#{notificacionVista.txtNombre}"/>
+							    		<b:inputTextarea placeholder="Descripcion" value="#{notificacionVista.txtDescripcion}" maxlength="500"/>
+							    		<p:selectOneMenu id="somCategoriaProd"  binding="#{notificacionVista.somCategoriaProd}" filter="true" style="font-size:11pt;width:100%"
+													label="Categoria de producto" label-style="font-size: 10pt;">
+										<f:selectItem itemValue="-1" itemLabel="TODAS LAS CATEGORIAS DE PRODUCTO" />
+										<f:selectItems value="#{notificacionVista.categoriasProd}" />
+									</p:selectOneMenu>
+							    		<div>
+							    			<br />
+							    		</div>
+									<b:selectOneMenu id="somTipoNot" class="somTipoNot" binding="#{notificacionVista.somTipoNotificacion}" 
+													label="Tipo de Notificacion" label-style="font-size: 10pt;" medium-screen="6">
+										<f:selectItem itemValue="-1" itemLabel="TODOS" />
+										<f:selectItems value="#{notificacionVista.losItemsTipoNotificacion}" />
+									</b:selectOneMenu>
+									<b:datepicker value="#{notificacionVista.fechaTerminacion}" label="Vigencia" label-style="font-size: 10pt;" medium-screen="6"/></b:panel>
+							</div>
+							<div class="col-md-6">
+								<b:panel title="Imagen" look="primary" collapsible="false">
+			                    		<h:inputFile value="#{notificacionVista.file}" style="font-size:11pt;color:#333333;" />
+			                    		<br />
+			                    		<b:commandButton value="Cargar Archivo" look="primary" onclick="ajax:notificacionVista.uploadImagen();" update="growl"/>                        		
+			                   		
+			                   		<br />
+			                   		<br />
+			                   		<div align="center">
+				                   		<h:panelGroup id="panelImagen">
+				                   			<img class="img-responsive" src="#{notificacionVista.imagen}" style="width:400px"/>
+				                   		</h:panelGroup>
+			                   		</div>
+								</b:panel>
+							</div> 
+						</h:panelGroup>   
+						<div class="col-md-12">
+							<h:panelGroup id="notificaciones">
+								<b:dataTable value="#{notificacionVista.notificaciones}" var="notificacion" style="font-size: 12px;" class="editableCarTable">
+									<b:dataTableColumn value="#{notificacion.nombre}" label="Nombre" />
+									<b:dataTableColumn value="#{notificacion.tipoNot.nombre}" label="Tipo" />
+									<b:dataTableColumn value="#{notificacion.categoriaProd.nombre}" label="Categoria" />
+									<b:dataTableColumn value="#{notificacion.negocio.razonSocial}" label="Negocio" />
+									<b:dataTableColumn value="#{notificacion.fechaTerminacion}" label="Fecha limite"/>
+									<b:dataTableColumn value="#{notificacion.descripcion}" label="Descripcion"/>
+									<b:dataTableColumn label="Opciones">
+										<b:commandButton value="Borrar" look="danger" onclick="ajax:notificacionVista.borrar(notificacion);"/>
+									</b:dataTableColumn>
+								</b:dataTable>
+							</h:panelGroup>
+						</div>
+						<!-- FORMULARIO -->
+				  </b:tab>
+				  <b:tab title="TODAS">
+				  		<br />
+				  		<br />
+				     	<!-- NOTIFICACIONES -->
+						<div class="container">   
+					        <b:dataTable id="tabla" value="#{notificacionVista.todasNotificaciones}" var="notificacion" >
+					        			<b:dataTableColumn value="#{notificacion.nombre}" label="Nombre" />
+									<b:dataTableColumn value="#{notificacion.tipoNot.nombre}" label="Tipo" />
+									<b:dataTableColumn label="Imagen">
+											<div align="center">
+												<img src="#{notificacionVista.getImage(notificacion.idNotificacion)}" style="width:200px;"/>
+											</div>
+									</b:dataTableColumn>
+									<b:dataTableColumn value="#{notificacion.categoriaProd.nombre}" label="Categoria" />
+									<b:dataTableColumn label="Negocio">
+										<h:link outcome="detalleNegocio.xhtml?faces-redirect=true" includeViewParams="true" 
+												value="#{notificacion.negocio.razonSocial}">
+                                     	   	  <f:param id="negocio" name="negocio" value="#{notificacion.negocio.idNegocio}"/>    
+                                         </h:link>
+									</b:dataTableColumn>
+									<b:dataTableColumn value="#{notificacion.fechaTerminacion}" label="Fecha limite"/>
+									<b:dataTableColumn value="#{notificacion.descripcion}" label="Descripcion"/>
+							</b:dataTable>
+						</div>
+						<!-- NOTIFICACIONES -->
+				  </b:tab>
+				</b:tabView>
+					  
+				
+
+			</div>
+		</div>
+		
+	
+
+		 <p:growl id="bottom"/>
+		
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+		<script src="assets/js/Profile-Edit.js"></script>
+		<script src="assets/js/Sidebar-Menu.js"></script>
+		
+		
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+
+</html>

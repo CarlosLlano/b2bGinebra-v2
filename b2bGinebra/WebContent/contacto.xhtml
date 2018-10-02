@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form>
+		
+		<div class="container" id="info-container">
+			<div class="row">
+
+				<!-- DATOS -->
+
+				<div class="col-md-12">
+					<h2 class="text-center text-info">Contáctanos </h2>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12" id="contact-box">
+					<p id="contact-text" style="height:26pt;padding:0px;font-size:12pt;">Si tiene alguna duda no dude en contactarnos o visitarnos. </p>
+					<div class="info-box">
+						<i class="glyphicon glyphicon-map-marker my-info-icons" style="font-size:12pt;"></i>
+						<span class="text-uppercase text-info" style="font-size:12pt;">DIRECCIÓN: </span>
+						<span style="font-size:12pt;">Carrera 3 No. 4-17 Ginebra, Valle - Colombia </span></div>
+					<div class="info-box">
+						<i class="glyphicon glyphicon-envelope my-info-icons" style="font-size:12pt;"></i>
+						<span class="text-uppercase text-info" style="font-size:12pt;">CORREO: </span>
+						<span style="font-size:12pt;">contactenos@ginebra-valle.gov.co </span>
+					</div>
+					<div class="info-box">
+						<i class="glyphicon glyphicon-phone-alt my-info-icons" style="font-size:12pt;"></i>
+						<span class="text-uppercase text-info" style="font-size:12pt;">TELÉFONO: </span>
+						<span style="font-size:12pt;">2561100 </span>
+					</div>
+				</div>
+
+				<!-- DATOS -->
+
+				<!-- FORMULARIO -->
+				<div class="col-md-6 col-sm-6 col-xs-12 site-form">
+					<h:form id="my-form">
+						<div class="form-group has-feedback">
+							<label class="control-label sr-only" for="firstname">FirstName</label>
+							<b:inputText value="#{contactoVista.nombres}" placeholder="Nombres" />
+							<i class="form-control-feedback fa fa-user" aria-hidden="true"></i>
+						</div>
+						<div class="form-group has-feedback">
+							<label class="control-label sr-only" for="lastname">LastName</label>
+							<b:inputText value="#{contactoVista.apellidos}" placeholder="Apellidos" />
+							<i class="form-control-feedback fa fa-user" aria-hidden="true"></i>
+						</div>
+						<div class="form-group has-feedback">
+							<label class="control-label sr-only" for="phonenumber">PhoneNumber</label>
+							<b:inputText value="#{contactoVista.telefono}" placeholder="Telefono" />
+							<i class="form-control-feedback fa fa-phone" aria-hidden="true"></i>
+						</div>
+						<div class="form-group has-feedback">
+							<label class="control-label sr-only" for="email">EmailAddress</label>
+							<b:inputText value="#{contactoVista.correo}" placeholder="Correo electronico" />
+							<i class="form-control-feedback fa fa-envelope" aria-hidden="true"></i>
+						</div>
+						<div class="form-group has-feedback">
+							<label class="control-label sr-only" for="messages">LastName</label>
+							<b:inputTextarea placeholder="Escribe tu mensaje..." value="#{contactoVista.mensaje}" />
+							<i class="form-control-feedback fa fa-pencil" aria-hidden="true"></i>
+						</div>
+						<b:commandButton look="success" value="Enviar" action="#{contactoVista.enviarCorreoAction}" />
+						<b:modal id="modalCamposEnBlanco" title="Mensaje" styleClass="modalPseudoClass" losable="false"  close-on-escape="false" backdrop="false">
+							<h3>#{contactoVista.modalText}</h3>
+							<f:facet name="footer">
+								<b:button value="Aceptar" look="primary" dismiss="modal" />
+							</f:facet>
+						</b:modal>
+					</h:form>
+				</div>
+				<!-- FORMULARIO -->
+
+				<div class="clearfix"></div>
+			</div>
+			
+		</div>
+
+		
+
+		
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+		<script src="assets/js/Profile-Edit.js"></script>
+		<script src="assets/js/Sidebar-Menu.js"></script>
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario">
+		
+	    <h1></h1>   
+	    <b:container fluid="true"> 
+		   <b:row>
+			    <b:column medium-screen="2">
+			    		<h4>Tipo negocio</h4>
+			    </b:column>
+			    <div class="col-md-3">
+			    <p:selectOneMenu id="somTipo" binding="#{directorioVista.somTipoNegocio}" style="font-size:11pt" filter="true" >
+					<f:selectItem itemValue="-1" itemLabel="TODOS LOS TIPOS DE NEGOCIO" />
+					<f:selectItems value="#{directorioVista.tipoNegocios}" />
+					<f:ajax listener="#{directorioVista.somTipoNegocioOnChange}" render="formulario:render" />
+				</p:selectOneMenu>
+				</div>
+			    
+		 	</b:row>
+		 	<b:row>
+			    <b:column medium-screen="2">
+			      <h4>Categoria de producto</h4>
+			    </b:column>
+			    <div class="col-md-3">
+				    <h:panelGroup id="render">
+					    <p:selectOneMenu id="somCategoriaProd" binding="#{directorioVista.somCategoriaProd}" filter="true"  style="font-size:11pt">
+							<f:selectItem itemValue="-1" itemLabel="TODAS LAS CATEGORIAS DE PRODUCTO" />
+							<f:selectItems value="#{directorioVista.categoriasProd}" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+				</div>
+		 	</b:row>
+		 	<b:row>
+				 	<b:column medium-screen="2">
+				      <h4>Nombre</h4>
+				    </b:column>
+				    <b:inputText placeholder="Escriba el nombre del negocio..."  binding="#{directorioVista.txtBuscar}" large-screen="one-third"/>
+            </b:row>
+            <b:row>
+		            <b:column span="2" offset="2">
+		      			<b:commandButton value="Buscar" look="primary" style="width:100%" action="#{directorioVista.buscarAction}" render="datagrid"/>
+		    			</b:column>
+		    			<b:column span="2">
+				      <b:commandButton value="Limpiar" look="primary" style="width:100%" action="#{directorioVista.limpiarAction}" render="datagrid"/>
+				    </b:column>
+		    </b:row>
+	    </b:container>
+	    
+	    <div class="page-content-wrapper">
+	        <div class="container-fluid">	
+	            <div class="row">
+	                <div class="col-md-12">
+	                    <div class="page-header">
+	                        <h1>Negocios</h1>
+	                    </div>
+          
+	                    <div class="container">
+	                        
+	                        <!--directorio  -->
+	                        <div class="row">
+	                                <div class="col s12">
+	                                    <p:dataGrid id="datagrid" value="#{directorioVista.negocios}" var="obj"
+	          							   columns="3" layout="grid" rows="12" paginator="true"
+	                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
+	                                        {RowsPerPageDropdown}">
+	    								    										
+	                                        <div class="card" align="center">
+	                                            <div class="card-content blacke-text">
+	                                                <span class="card-title">
+	                                              
+	                                                	   <h:link outcome="detalleNegocio.xhtml?faces-redirect=true" includeViewParams="true">                                                	 
+	                                                	   	  
+	                                                	   	  <img src="#{directorioVista.getImage(obj.idNegocio)}" width="245" height="280"/>
+	                                                	   	  <f:param id="negocio" name="negocio" value="#{obj.idNegocio}"/>    
+	                                                    </h:link>
+	                                                                                                
+	                                                </span>
+	                                                <H5>#{obj.razonSocial}</H5>   
+	                                               
+	                                            </div>
+	                                        </div>
+	                                                             
+	                                    </p:dataGrid>
+	                                </div>
+	                            </div>
+	
+	                        <!-- directorio -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+		</div>
+		
+		
+	    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+	    <script src="assets/js/Profile-Edit.js"></script>
+	    <script src="assets/js/Sidebar-Menu.js"></script>
+		
+	   
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

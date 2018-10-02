@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
+	<h:head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Comercio Ginebrino</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie"/>
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css"/>
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css"/>
+    <link rel="stylesheet" href="assets/css/Beautiful-Info-Note--Callout.css"/>
+    <link rel="stylesheet" href="assets/css/Contact-FormModal-Contact-Form-with-Google-Map.css"/>
+    <link rel="stylesheet" href="assets/css/ebs-contact-form.css"/>
+    <link rel="stylesheet" href="assets/css/ebs-contact-form1.css"/>
+    <link rel="stylesheet" href="assets/css/FAQ-Frequentlly-Asked-Questions.css"/>
+    <link rel="stylesheet" href="assets/css/FAQ-Frequentlly-Asked-Questions1.css"/>
+    <link rel="stylesheet" href="assets/css/Features-Blue.css"/>
+    <link rel="stylesheet" href="assets/css/Footer-Basic.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css"/>
+    <link rel="stylesheet" href="assets/css/Lightbox-Gallery.css"/>
+    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css"/>
+    <link rel="stylesheet" href="assets/css/Pretty-Footer.css"/>
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button1.css"/>
+    <link rel="stylesheet" href="assets/css/Profile-Edit.css"/>
+    <link rel="stylesheet" href="assets/css/Profile-Edit1.css"/>
+    <link rel="stylesheet" href="assets/css/Recuperar-Password-mloureiro1973.css"/>
+    <link rel="stylesheet" href="assets/css/Responsive-footer.css"/>
+    <link rel="stylesheet" href="assets/css/Responsive-footer1.css"/>
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css"/>
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu1.css"/>
+    <link rel="stylesheet" href="assets/css/styles.css"/>
+    
+    
+    <!-- PARA GOOGLE MAPS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+	    #map
+        {
+	    	  margin: auto;
+	      height:500px;
+	      width:100%;
+	    }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+    </style>
+    <!-- PARA GOOGLE MAPS-->
+
+</h:head>
+	<h:body>		
+			<ui:insert name="header">
+				 <ui:include src="/WEB-INF/plantilla/encabezado.xhtml" />
+			</ui:insert>
+		
+				<ui:insert name="body"/>
+		
+			<ui:insert name="footer">
+				  <ui:include src="/WEB-INF/plantilla/inferior.xhtml" />
+			</ui:insert>		
+	</h:body>
+</html>

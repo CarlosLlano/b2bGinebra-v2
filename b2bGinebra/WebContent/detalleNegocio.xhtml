@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario">
+    
+    <div class="photo-gallery">
+        <div class="container">
+            
+                <div class="row">
+                    <div class="col-md-6" id="message">
+                    		<H3></H3>
+                        <fieldset>
+                            <legend>
+                            		<i class="fa fa-home"></i> 
+                            		<h:outputLabel value="#{negocioVista.negocioSeleccionado.razonSocial}"/>
+                            	</legend>
+                            	<div align="center">
+                            		<img class="img-responsive" src="#{negocioVista.imagenPrincipal}" style="width:400px"/>
+                            	</div>
+                             
+                            
+                        </fieldset>
+                        <H1></H1>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="from_name"><h5>Tipo de negocio:</h5> </label>
+                            <label class="control-label" for="from_name"></label>  
+                            <h:outputLabel value="#{negocioVista.negocioSeleccionado.tipoNegocio.nombre}" style="font-size: 10pt"/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="from_email"><h5>Página Web: </h5></label>  
+                            <a href=" #"> 
+                            		<h:outputLabel value="#{negocioVista.negocioSeleccionado.sitioWeb}" style="font-size: 10pt"/> 
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="comments"><h5>Descripción</h5> </label>
+                           	<b:inputTextarea value="#{negocioVista.negocioSeleccionado.descripcion}" readonly="true"/>
+                            <div class="col-sm-6">
+                            		<H3></H3>
+                                <fieldset>
+                                    <legend><i class="glyphicon glyphicon-earphone"></i> Telefono </legend>
+                                </fieldset>
+                                <div></div>
+                                <div><span><h:outputLabel value="#{negocioVista.negocioSeleccionado.telefono}" style="font-size: 10pt"/></span></div>
+                            </div>
+                            <div class="col-sm-6">
+                            		<H3></H3>
+                                <fieldset>
+                                    <legend><i class="fa fa-envelope"></i> Correo</legend>
+                                </fieldset>
+                                <div></div>
+                                <div><span><h:outputLabel value="#{negocioVista.negocioSeleccionado.correo}" style="font-size: 10pt"/></span></div>
+                                <div></div>
+                                <hr class="visible-xs-block"/>
+                            </div>
+                        </div>
+                        <div class="form-group"></div>
+                        <hr class="visible-xs-block visible-sm-block"/>
+                    </div>
+                    <div class="col-md-6">
+                    		<H3></H3>
+                        <fieldset>
+                            <legend> <i class="fa fa-location-arrow"></i> Localizanos</legend>
+                        </fieldset>
+                        <div class="row">
+                            <div class="col-md-12">
+                            	 
+                            	  <!-- MAPA -->
+							  <b:inputText id="direccion" value="#{negocioVista.negocioSeleccionado.direccion}" 
+							  			  label="Dirección" readonly="true" label-style="font-size: 10pt;"/>
+							 
+							  <div id="map"></div>
+							  <script src="assets/javascript/mapsFijo.js" />
+							  <script async="async" defer="defer"
+							    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVRz4AuNEjRVuUzLUMBW7Lx2HFtwsR4SQ&amp;callback=initMap">
+							   </script> 
+							   <!-- MAPA -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+            		<H3></H3>
+                <div class="col-md-12">
+                    <legend><i class="fa fa-calendar-times-o"></i> Horario</legend>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="table-responsive">
+                        <b:dataTable value="#{negocioVista.horarios}" var="horario" pageLength="50" info="false" searching="false" paginated="false">
+							<b:dataTableColumn value="#{horario.dia}" label="Dia"/>
+							<b:dataTableColumn value="#{horario.fechaInicio}" label="Desde"/>
+							<b:dataTableColumn value="#{horario.fechaFin}" label="Hasta"/>
+						</b:dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="photo-gallery"></div>
+    <div class="photo-gallery">
+        <div class="container">
+            <b:container rendered="#{negocioVista.hayImagenes}">
+            		<legend><i class="glyphicon glyphicon-camera"></i> Galeria</legend>
+             </b:container>
+            <div align="center">
+				<b:carousel id="carousel" style="width:800px" rendered="#{negocioVista.hayImagenes}">
+					<c:forEach items="#{negocioVista.imagenes}" var="img">
+				         <b:carouselItem>
+				              <img class="img-responsive" src="#{negocioVista.getImage(img)}" style="width:800px"/>
+				         </b:carouselItem>
+				    </c:forEach>
+				</b:carousel>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+            		<H3></H3>
+                <div class="col-md-12">
+                    <legend><i class="fa fa-tag"></i> Catalogo de productos</legend>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <b:dataTable value="#{negocioVista.ofertas}" var="oferta" pageLength="100" info="false" searching="false" paginated="false">
+							<b:dataTableColumn value="#{oferta.categoriaProd.nombre}" label="Categoria de producto"/>
+							<b:dataTableColumn value="#{oferta.descripcion}" label="Descripcion"/>
+						</b:dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script src="assets/js/Profile-Edit.js"></script>
+    <script src="assets/js/Sidebar-Menu.js"></script>
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

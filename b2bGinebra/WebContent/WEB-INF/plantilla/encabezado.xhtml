@@ -1,0 +1,123 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui">
+	<html>
+
+<body>
+	<f:view>
+		<ui:composition>
+
+			<h:form>
+
+				<!-- HEADER -->
+				<div>
+					<nav class="navbar navbar-default navigation-clean-button" style="background-color:#003951;color:#eeeeee;">
+						<div class="container">
+							<div class="navbar-header">
+								<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+							</div>
+							<div class="collapse navbar-collapse" id="navcol-1">
+								<ul class="nav navbar-nav"></ul>
+								<p class="navbar-text navbar-right actions" style="color:#ffffff;">
+									<h:panelGroup rendered="#{jsfSecurityTools.usuario eq null}" >
+										<a class="navbar-link login" href="inicio.xhtml" style="color:#f2f5f8;font-size:15pt;">Iniciar sesión</a> 
+										<a class="btn btn-default action-button" role="button" href="registro.xhtml" style="font-size:15pt;color:#ffffff;background-color:#00708c;">Registrarse </a>
+									</h:panelGroup>
+									
+								</p>
+								<ul class="nav navbar-nav">
+									<li role="presentation"><a href="home.xhtml" style="font-size:15pt;color:#ffffff;">Home </a></li>
+									<li role="presentation"><a href="acercaDeNosotros.xhtml" style="font-size:15pt;color:#ffffff;">Acerca de nosotros</a></li>
+									<li role="presentation"><a href="contacto.xhtml" style="font-size:15pt;color:#ffffff;">Contacto </a></li>
+									
+									<!-- OPCIONES ALCALDIA-->
+									<h:panelGroup rendered="#{jsfSecurityTools.subject.hasRole('root')}" >
+										<li class="dropdown" >
+											<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> 
+											<img src="assets/img/loggedin.jpg" class="dropdown-image" style="width:30px;height:29px;"/><span class="caret"></span></a>
+											<ul class="dropdown-menu dropdown-menu-left" role="menu">
+													
+															
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Estadisticas" style="font-size:12pt;" href="alcaldiaEstadisticas.xhtml" />
+												</li>
+												<b:navLink></b:navLink>
+													
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Solicitudes" style="font-size:12pt;" href="alcaldiaSolicitudes.xhtml"/>
+												</li>
+												<b:navLink></b:navLink>
+												
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Parametros" style="font-size:12pt;" href="alcaldiaParametros.xhtml" />
+												</li>
+												<b:navLink></b:navLink>
+												
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Usuarios" style="font-size:12pt;" href="alcaldiaEstadoUsuarios.xhtml" />
+												</li>
+												<b:navLink></b:navLink>
+												
+												
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Cerrar sesion" style="font-size:12pt;" actionListener="#{logout.submit}"/>
+												</li>
+											
+											</ul>
+										</li>    
+									</h:panelGroup>                    
+									
+									<!-- OPCIONES USUARIO-->	 
+									<h:panelGroup rendered="#{jsfSecurityTools.subject.hasRole('Users')}" >
+										<li class="dropdown" >
+											<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"> 
+											<img src="assets/img/loggedin.jpg" class="dropdown-image" style="width:30px;height:29px;"/><span class="caret"></span></a>
+											<ul class="dropdown-menu dropdown-menu-left" role="menu">
+													
+		
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Mi Negocio" style="font-size:12pt;" href="miNegocio.xhtml"/>
+												</li>
+												<b:navLink></b:navLink>
+												
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Notificaciones" style="font-size:12pt;" href="notificaciones.xhtml"/>
+												</li>
+												<b:navLink></b:navLink>
+																	
+												
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Informacion Personal" style="font-size:12pt;" href="infoPersonal.xhtml"/>
+												</li>
+												<b:navLink></b:navLink>
+																	
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Cerrar sesion" style="font-size:12pt;" actionListener="#{logout.submit}"/>
+												</li>
+											
+											</ul>
+										</li>    
+									</h:panelGroup>           
+		
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<div></div>
+				<!-- HEADER -->
+
+
+			</h:form>
+
+
+		</ui:composition>
+	</f:view>
+</body>
+	</html>
+</jsp:root>

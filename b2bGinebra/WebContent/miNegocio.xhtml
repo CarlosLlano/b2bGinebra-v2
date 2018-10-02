@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario" enctype="multipart/form-data">
+   
+    <p:growl id="top"/>
+	<b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+    
+    <div>
+        <div class="container">
+            <div class="row" style="height:100px;background-color:transparent;">
+                <div class="col-lg-4 col-md-6">
+                		<b:commandButton value="Guardar cambios" look="success" style="height:46px;margin:12px;"
+                						ajax="true" onclick="onchangeDireccion();ajax:miNegocioVista.guardarCambios();"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="photo-gallery">
+        <div class="container">
+            
+                <div class="row">
+                    <div class="col-md-6" id="message">
+                    		<H3></H3>
+                        <fieldset>
+                            <legend>
+                            		<i class="fa fa-home"></i> 
+                            		<h:outputLabel value="#{miNegocioVista.negocioSeleccionado.razonSocial}"/>
+                            	</legend>
+                            	<div align="center">
+                            		<div>
+	                            		<h:inputFile id="file" value="#{miNegocioVista.file}" style="font-size:11pt;color:#333333;" />
+	                            		<br />
+	                            		<b:commandButton value="Cargar Archivo" look="primary" onclick="ajax:miNegocioVista.uploadImagen();" update="growl"/>                        		
+                            		</div>
+                            		<br />
+                            		<h:panelGroup id="panelImagen">
+                            			<img  class="img-responsive" src="#{miNegocioVista.imagenPrincipal}" style="width:400px"/>
+                            		</h:panelGroup>
+                            	</div>
+                             
+                            
+                        </fieldset>
+                        <H1></H1>
+                        
+                        <!-- TIPO NEGOCIO -->
+                        <div class="form-group has-feedback">
+                            <b:selectOneMenu id="somTipoNegocio"  binding="#{miNegocioVista.somTipoNegocio}" label="Tipo Negocio" label-style="font-size: 10pt;">
+								<f:selectItems value="#{miNegocioVista.tipoNegocios}" />
+							</b:selectOneMenu>			                
+                        </div>
+                        <!-- TIPO NEGOCIO -->
+                        
+                        <!-- PAGINA WEB -->
+                        <div class="form-group has-feedback">
+                            		<b:inputText value="#{miNegocioVista.negocioSeleccionado.sitioWeb}" 
+                            					label-style="font-size: 10pt" label="Pagina Web" />      
+                        </div>
+                        <!-- PAGINA WEB -->
+                        
+                        
+                        <div class="form-group">
+                        		
+                        		 <!-- DESCRIPCION -->
+                            <label class="control-label" for="comments"><h5>Descripción</h5> </label>
+                           	<b:inputTextarea value="#{miNegocioVista.negocioSeleccionado.descripcion}" />
+                           	 <!-- DESCRIPCION -->
+                           	 
+                        		<!-- CORREO -->
+                            <div >
+                            		<H3></H3>
+                                <fieldset>
+                                    <legend><i class="fa fa-envelope"></i> Correo</legend>
+                                </fieldset>
+                                <div></div>
+                                <div>
+                                		<b:inputText value="#{miNegocioVista.negocioSeleccionado.correo}"/>  
+                                	</div>
+                                <div></div>
+                                <hr class="visible-xs-block"/>
+                            </div>
+                            <!-- CORREO -->
+                        </div>
+                        <div class="form-group"></div>
+                        <hr class="visible-xs-block visible-sm-block"/>
+                    </div>
+                    
+                    <!-- DIRECCION CON MAPA-->
+                    <div class="col-md-6">
+                    		<H3></H3>
+                        <fieldset>
+                            <legend> <i class="fa fa-location-arrow"></i> Localizanos</legend>
+                        </fieldset>
+                        <div class="row">
+                            <div class="col-md-12">
+                            	 
+                            	  <!-- MAPA -->
+							  <b:inputText placeholder="Escriba una direccion o ubique su negocio en el mapa" 
+							  			  value="#{miNegocioVista.negocioSeleccionado.direccion}" id="direccion" 
+							  			  tooltip="Escriba una dirección o ubíquela en el mapa" />
+						
+							  <input id="pac-input" class="controls" type="text" placeholder="Ubicacion"  />
+
+								<div id="type-selector" class="controls">
+									<input type="radio" name="type" id="changetype-all" checked="checked" />
+									<label for="changetype-all">Todos</label>
+	
+									<input type="radio" name="type" id="changetype-establishment" />
+									<label for="changetype-establishment">Establecimientos</label>
+	
+									<input type="radio" name="type" id="changetype-address" />
+									<label for="changetype-address">Direcciones</label>
+	
+									<input type="radio" name="type" id="changetype-geocode" />
+									<label for="changetype-geocode">Códigos geográficos</label>
+								</div>
+								<div id="map"></div>
+								<script src="assets/javascript/maps.js" />
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVRz4AuNEjRVuUzLUMBW7Lx2HFtwsR4SQ&amp;libraries=places&amp;callback=initMap"
+								 async="async" defer="defer"></script>
+							   <!-- MAPA -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DIRECCION CON MAPA-->
+                </div>
+            
+        </div>
+    </div>
+    <!-- HORARIO-->
+    <div>
+        <div class="container">
+            <div class="row">
+            		<H3></H3>
+                <div class="col-md-12">
+                    <legend><i class="fa fa-calendar-times-o"></i> Horario</legend>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+        		
+        		<b:commandButton value="Agregar" look="primary" onclick="ajax:miNegocioVista.agregarHorario();" update="growl"/>
+        		<br />
+        		<br />
+        		<b:selectOneMenu id="somDiaHorario" binding="#{miNegocioVista.somDiaHorario}" label="Dia" label-style="font-size: 10pt;" medium-screen="4">
+				<f:selectItems value="#{miNegocioVista.dias}" />
+			</b:selectOneMenu>
+			<b:dateTimePicker binding="#{miNegocioVista.pickerDesde}" 
+							  show-time="true" show-date="false" format="HH:mm" 
+							  label="Desde" label-style="font-size: 10pt" medium-screen="4"/>
+			<b:dateTimePicker binding="#{miNegocioVista.pickerHasta}"
+							  show-time="true" show-date="false" format="HH:mm" 
+							  label="Hasta" label-style="font-size: 10pt" medium-screen="4"/>
+            <div class="row">
+            		
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                    	  <h:panelGroup id="horarios">
+                        <b:dataTable value="#{miNegocioVista.horarios}" var="horario" 
+                        				pageLength="50" info="false" 
+                        				searching="false" paginated="false"
+                        				class="tablaHorarios">
+							<b:dataTableColumn label="Dia">
+								<h:outputLabel value="#{horario.dia}" rendered="#{miNegocioVista.horarioSeleccionado ne horario}"/>
+								<b:inputText value="#{horario.dia}" rendered="#{miNegocioVista.horarioSeleccionado eq horario}"/>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Desde">
+								<h:outputLabel value="#{horario.fechaInicio}" rendered="#{miNegocioVista.horarioSeleccionado ne horario}"/>
+								<b:inputText value="#{horario.fechaInicio}" rendered="#{miNegocioVista.horarioSeleccionado eq horario}"/>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Hasta">
+								<h:outputLabel value="#{horario.fechaFin}" rendered="#{miNegocioVista.horarioSeleccionado ne horario}"/>
+								<b:inputText value="#{horario.fechaFin}" rendered="#{miNegocioVista.horarioSeleccionado eq horario}"/>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Opciones">
+								<b:commandButton value="Editar" look="primary" 
+												style="margin-right: 10px;"
+												onclick="ajax:miNegocioVista.seleccionarHorario(horario);" update="@(.tablaHorarios)"
+												rendered="#{miNegocioVista.horarioSeleccionado ne horario}"/>
+								<b:commandButton value="Guardar" look="success" 
+												style="margin-right: 10px;"
+												onclick="ajax:miNegocioVista.setHorarioSeleccionado(null)"
+												rendered="#{miNegocioVista.horarioSeleccionado eq horario}" update="@(.tablaHorarios)"/>
+								<b:commandButton value="Borrar" look="danger"
+												onclick="ajax:miNegocioVista.borrar(horario)"/>
+							</b:dataTableColumn>
+						</b:dataTable>
+					  </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HORARIO-->
+    <br />
+    
+    <!-- GALERIA-->
+    <div class="photo-gallery"></div>
+    <div class="photo-gallery">
+        <div class="container">
+            <b:container>
+            		<legend><i class="glyphicon glyphicon-camera"></i> Galeria</legend>
+            		<div>
+            			<div class="col-md-3">
+                 		<h:inputFile value="#{miNegocioVista.fileGaleria}" style="font-size:11pt;color:#333333;" />
+                 	</div>
+	                	<div class="col-md-3">
+	                 	<b:commandButton value="Cargar" look="primary" onclick="ajax:miNegocioVista.uploadImagenGaleria();" update="growl"/> 
+	                 </div>
+	                 <div class="col-md-3">
+	                 	<b:inputText placeholder="numero de la imagen" value="#{miNegocioVista.txtIdentificadorImagen}"/>
+	                  </div>    
+	                  <div class="col-md-3">
+	                 	<b:commandButton value="Eliminar" look="primary" onclick="ajax:miNegocioVista.eliminarImagenGaleria();" update="growl"/>  
+	                 </div>          		
+                </div>
+             </b:container>
+             
+            <div align="center">
+            		<h:panelGroup id="galeria">
+					<b:carousel id="carousel" style="width:800px" rendered="#{miNegocioVista.hayImagenes}" interval="20000">
+						<c:forEach items="#{miNegocioVista.imagenes}" var="img">
+					         <b:carouselItem>
+					         	  <b:carouselCaption>
+					         	  		<h3>#{miNegocioVista.getPosicionImagen(img)}</h3>
+					         	  </b:carouselCaption>
+					              <img class="img-responsive" src="#{miNegocioVista.getImage(img)}" style="width:800px"/>
+					         </b:carouselItem>
+					    </c:forEach>
+					</b:carousel>
+				</h:panelGroup>
+            </div>
+        </div>
+    </div>
+     <!-- GALERIA-->
+    
+     <!-- CATALOGO -->
+    <div>
+        <div class="container">
+            <div class="row">
+            		<H3></H3>
+                <div class="col-md-12">
+                    <legend><i class="fa fa-tag"></i> Catalogo de productos</legend>
+                     <b:commandButton value="Agregar" look="primary" onclick="ajax:miNegocioVista.agregarProducto();" 
+                     				update="growl somCategoriaProd txtAreaDescripcion"/>
+                </div> 
+               <div class="col-md-offset-1">   	
+	                <b:selectOneMenu id="somCategoriaProd"  binding="#{miNegocioVista.somCategoriaProd}" 
+	                					label="Categoria de producto"  label-style="font-size: 10pt;"
+	                					large-screen="one-third"  >
+						<f:selectItem itemValue="-1" itemLabel="TODAS LAS CATEGORIAS DE PRODUCTO" />
+						<f:selectItems value="#{miNegocioVista.categoriasProd}" />
+					</b:selectOneMenu>
+					 <br />
+					 <b:inputTextarea id="txtAreaDescripcion" binding="#{miNegocioVista.txtAreaDescripcion}" 
+					 				placeholder="Descripcion del producto (Caracteristicas fisicas, precio, etc.)" 
+					 				maxlength="500"/>
+				</div>
+				
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                    		<h:panelGroup id="catalogo">
+	                        <b:dataTable value="#{miNegocioVista.ofertas}" var="oferta" 
+	                        				pageLength="100" info="false" searching="false" paginated="false"
+	                        				class="tablaOferta">
+								<b:dataTableColumn value="#{oferta.categoriaProd.nombre}" label="Categoria de producto"/>
+								<b:dataTableColumn value="#{oferta.descripcion}"  label="Descripcion"/>
+								<b:dataTableColumn label="Opciones">
+									<b:commandButton value="Borrar" look="danger"
+												onclick="ajax:miNegocioVista.borrarOferta(oferta)"/>
+								</b:dataTableColumn>
+							</b:dataTable>
+						 </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- CATALOGO-->
+   
+    <p:growl id="bottom"/>
+    
+    
+   
+   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+   <script type="text/javascript">
+   		
+		function onchangeDireccion()
+		{	
+			if (document.getElementById("input_formulario:direccion").value) {
+			   //se toma la direccion digitada por el usuario
+			}
+			else
+		    {
+				document.getElementById("input_formulario:direccion").value = document.getElementById("pac-input").value;
+			}
+			
+		}
+	</script>
+   
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

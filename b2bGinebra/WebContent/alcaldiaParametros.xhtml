@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui" xmlns:hf="http://highfaces.org">
+<h:body>
+	<ui:composition template="/WEB-INF/plantilla/template.xhtml">
+		<ui:define name="body">
+			<f:view>
+				<h:form>
+
+					<div>
+						<div class="container">
+
+							<div class="row">
+								<div class="col-md-12">
+									<h2 class="text-center">Parametros </h2>
+
+								</div>
+							</div>
+							<br/>
+							<br/>
+
+							<div class="col-sm-6 col-md-4 col-md-offset-4">
+
+								<b:panel title="Parametro Seleccionado" look="primary" collapsible="false" id="panel" class="panel">
+									<b:inputText value="#{configuracionVista.nombre}" label="Nombre" readonly="true" />
+									<b:inputTextarea value="#{configuracionVista.valor}" label="Valor" required="#{configuracionVista.parametroSeleccionado ne null}" maxlength="500"
+									/>
+									<b:commandButton value="Guardar cambios" look="primary" style="margin-left: 10pt;" onclick="ajax:configuracionVista.modificarParametro();"
+									 rendered="#{configuracionVista.parametroSeleccionado ne null}" update="@(.editableCarTable) @(.panel)">
+									</b:commandButton>
+									<b:commandButton value="Cancelar" look="primary" style="margin-left: 10pt;" onclick="ajax:configuracionVista.cancelar();"
+									 rendered="#{configuracionVista.parametroSeleccionado ne null}" update="@(.editableCarTable) @(.panel)">
+									</b:commandButton>
+								</b:panel>
+
+							</div>
+
+							<div>
+								<b:dataTable value="#{configuracionVista.parametros}" var="parametro" style="font-size: 12px;" class="editableCarTable">
+									<b:dataTableColumn value="#{parametro.nombre}" label="Nombre" />
+									<b:dataTableColumn value="#{parametro.valor}" label="Valor" />
+
+									<b:dataTableColumn label="Opciones">
+										<b:commandButton value="Seleccionar" look="primary" onclick="ajax:configuracionVista.seleccionarParametro(parametro)" update="@(.panel)">
+										</b:commandButton>
+
+									</b:dataTableColumn>
+								</b:dataTable>
+
+							</div>
+
+						</div>
+					</div>
+
+
+
+					<script src="assets/js/jquery.min.js"></script>
+					<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+					<script src="assets/js/Profile-Edit.js"></script>
+					<script src="assets/js/Sidebar-Menu.js"></script>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+
+</html>

@@ -1,0 +1,12 @@
+/build/
+/target/
+.classpath
+.settings
+.DS_Store
+.project
+/WebContent/META-INF
+/Users
+*.DS_Store
+*.ucls
+/.metadata
+/.apt_generated/

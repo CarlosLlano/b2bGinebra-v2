@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario">
+    
+    <p:growl id="top"/>
+    <b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+    
+    <div>
+        <div class="container">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Solicitudes </h2>
+                 </div>
+            </div>
+            
+            <h1></h1>   
+		    <b:container fluid="true"> 
+			   <b:row>
+				    <b:selectOneMenu id="somEstado" class="somEstado" binding="#{solicitudesVista.somEstado}" large-screen="one-third" label="Estado" >
+						<f:selectItem itemValue="-1" itemLabel="TODOS" />
+						<f:selectItems value="#{solicitudesVista.estadosSolicitudes}" />
+						<f:ajax listener="#{solicitudesVista.somEstadoOnChange}" render="tabla" />
+					</b:selectOneMenu>
+				</b:row>
+		    </b:container>
+	            
+    
+              
+			<div class="container">   
+			        <b:dataTable id="tabla" value="#{solicitudesVista.solicitudes}" var="solicitud" class="editableTable">
+			        		<b:dataTableColumn label="Ver Detalle">
+							 <b:commandButton value="Ver" look="primary" style="margin: auto;"
+							 onclick="ajax:solicitudesVista.seleccionarSolicitud(solicitud);" 
+							 oncomplete="$('.modalDetalle').modal();"
+							 update="@(.modalDetalle)"/>	 
+						</b:dataTableColumn>	
+			        		<b:dataTableColumn value="#{solicitud.fechaCreacion}" label="Fecha de creacion" />
+			        		<b:dataTableColumn value="#{solicitud.estado.nombre}" label="Estado"/>
+						<b:dataTableColumn value="#{solicitud.negocio.razonSocial}" label="Negocio"/>
+						<b:dataTableColumn value="#{solicitud.negocio.tipoNegocio.nombre}" label="Tipo de Negocio"/>
+						<b:dataTableColumn value="#{solicitud.negocio.usuario.nombre}" label="Representante legal"/>
+						<b:dataTableColumn label="Opciones" >
+							 <b:commandButton value="Verificar" look="primary" style="margin-right: 10px;" ajax="true" 
+											onclick="ajax:solicitudesVista.seleccionarSolicitud(solicitud);solicitudesVista.verificarSolicitud();" 
+							 				update="formulario:growl"
+							 				rendered="#{solicitud.estado.nombre eq 'Enviada'}"/>
+							 
+							 <b:commandButton value="Aceptar" look="success" style="margin: auto;" ajax="true" 
+							 				onclick="ajax:solicitudesVista.seleccionarSolicitud(solicitud);solicitudesVista.aceptarSolicitud();" 
+							 				update="@(.editableTable)"
+							 				rendered="#{solicitud.estado.nombre eq 'Enviada'}"/>
+							 
+							  <b:commandButton value="Rechazar" look="danger" style="margin-left: 10px;"
+							  				onclick="ajax:solicitudesVista.seleccionarSolicitud(solicitud);"
+							  				oncomplete="$('.modalRespuesta').modal();"
+							  				 update="@(.modalRespuesta)"
+							  				 rendered="#{solicitud.estado.nombre eq 'Enviada'}"/>
+							  <h:outputText value="SOLICITUD ATENDIDA" rendered="#{solicitud.estado.nombre ne 'Enviada'}"/>
+							  <br/>
+							  <h:outputText value="FECHA ATENCION: #{solicitud.fechaAtencion} " rendered="#{solicitud.estado.nombre ne 'Enviada'}"/>
+							   <br/>
+							  <h:outputText value="RESPUESTA: #{solicitud.respuesta} " rendered="#{solicitud.estado.nombre eq 'Rechazada'}"/>
+							  
+						</b:dataTableColumn>	
+						
+						
+					</b:dataTable>
+			</div>
+
+			<!-- MODAL DETALLE -->
+            <b:modal id="modalDetalle" title="DETALLE" styleClass="modalDetalle" losable="false"  
+            			close-on-escape="false" backdrop="false" style="width: 100%">
+				
+				<div class="col-md-6 col-lg-12">
+				 	<b:inputTextarea label="DESCRIPCIÓN" rendered="#{solicitudesVista.solicitudRegSeleccionada ne null}" 
+				             value="#{solicitudesVista.solicitudRegSeleccionada.descripcion}" readonly="true" style="height: 150px; font-size: 10pt;"/>
+				</div>
+				<div class="col-md-12" >
+					<b:container rendered="#{solicitudesVista.solicitudRegSeleccionada ne null}">
+						<img src="#{solicitudesVista.getImage(solicitudesVista.solicitudRegSeleccionada.negocio.idNegocio)}" 
+							width="245" height="280"/>
+					</b:container>
+				</div>
+				
+				<div align="right">
+					<f:facet name="footer">
+						<b:button value="Aceptar" look="primary" dismiss="modal"/>
+					</f:facet>
+				</div>
+			</b:modal>
+			<!-- MODAL DETALLE -->
+			
+			<!-- MODAL RESPUESTA -->
+			<b:modal id="modalRespuesta" title="RESPUESTA" styleClass="modalRespuesta" losable="false"  
+            			close-on-escape="false" backdrop="false" style="width: 100%">
+				
+				<div align="center">
+				 	<b:inputTextarea  placeholder="Escriba el motivo del rechazo" maxlength="500" 
+				 					value="#{solicitudesVista.txtRespuesta}" 
+				 	                  style="height: 150px; font-size: 10pt;"/>
+				</div>
+				
+				<div align="right">
+					<f:facet name="footer">
+						<b:commandButton value="Aceptar" look="primary" 
+										onclick="$('.modalRespuesta').modal('hide');ajax:solicitudesVista.rechazarSolicitud();"
+										update="formulario:growl @(.editableTable)"/>
+					</f:facet>
+				</div>
+			</b:modal>
+			<!-- MODAL RESPUESTA -->
+			
+			
+			
+			
+            
+        </div>
+    </div>
+    
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	
+	
+	
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+
+</html>

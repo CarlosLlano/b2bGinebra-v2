@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form>
+    
+    <div class="footer-basic">
+        <div class="container profile profile-view" id="profile">
+
+                <div class="row profile-row">
+                    <div class="col-lg-4 col-md-4 relative">
+                        <div class="avatar">
+                            <div class="avatar-bg center"></div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-8">
+                        
+                        <h1 class="page-header">Perfil</h1>
+  
+                         <div class="form-group">
+                             <label class="control-label" style="font-size:12pt;">Nombre </label>
+                          <b:inputText binding="#{usuarioVista.txtNombre}"/>   
+                         </div>
+                         
+                         <div class="row">     
+                                <div class="col-md-6" >  
+                                		<div class="form-group" style="font-size:12pt;">
+	                                    <label class="control-label">Teléfono </label>
+	                                </div>
+	                                 <b:inputText  binding="#{usuarioVista.txtTelefono}"/>
+                                </div>
+                                 <div class="col-md-6" >
+                                 	<div class="form-group">
+	                                    <label class="control-label" style="font-size:12pt;">Dirección </label>
+	                                </div>
+                                		<b:inputText  binding="#{usuarioVista.txtDireccion}"/>  
+                                 
+                                 </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label" style="font-size:12pt;">Email </label>
+                            <b:inputText  binding="#{usuarioVista.txtCorreo}" />  
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-md-12 content-right">
+                                <b:commandButton value="Guardar" look="primary" style="margin: auto;" action="#{usuarioVista.cambiarInformacionPersonal}"/>    
+                            </div>
+                        </div>
+                        
+                       <b:modal id="modalError" title="Mensaje" styleClass="modalPseudoClass" losable="false"  close-on-escape="false" backdrop="false">
+							<h3>#{usuarioVista.modalText}</h3>
+							<f:facet name="footer">
+								<b:button value="Aceptar" look="primary" dismiss="modal" />
+							</f:facet>
+					  </b:modal>
+                        
+                       
+				
+                        
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script src="assets/js/Profile-Edit.js"></script>
+    <script src="assets/js/Sidebar-Menu.js"></script>
+
+</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+ xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml">
+<ui:define name="body">
+<f:view>
+<f:event type="preRenderView" listener="#{login.checkAuthentication}" />
+	<h:form id="formulario" enctype="multipart/form-data">
+		
+		<p:growl id="top"/>
+		<b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+		<div>
+			<div class="container">
+				<div class="row">
+				
+					<div align="center">
+						<br />
+						<h2 class="text-center"> Crear una nueva cuenta</h2>
+						<a href="inicio.xhtml" class="already">
+							<h4 class="text-center">Si ya esta registrado. Ingresar ahora</h4>
+						</a>
+						
+					
+					</div>
+					<br />
+					<!-- Datos del usuario -->
+					<div class="col-sm-6">
+						
+						<b:panel title="Datos Personales" look="primary" collapsible="false" tooltip="Deben ser los datos del representante legal del negocio">
+							<b:inputText placeholder="Nombre" value="#{registroVista.txtUsuNombre}"  />
+							<b:inputText placeholder="Cedula" value="#{registroVista.txtUsuIdentificacion}" />
+							<b:inputText placeholder="Teléfono" value="#{registroVista.txtUsuTelefono}" />
+							<b:inputText placeholder="Dirección" value="#{registroVista.txtUsuDireccion}" maxlength="50"/>
+							<b:inputText placeholder="Correo" value="#{registroVista.txtUsuCorreo}" type="email" />
+							<b:inputSecret placeholder="Contraseña" value="#{registroVista.txtUsuPassword}" />
+							<b:inputSecret placeholder="Confirmar Contraseña" value="#{registroVista.txtUsuPasswordConfirmar}"/>					
+						</b:panel>
+					</div>
+					<!-- Datos del usuario -->
+					
+					<!--Datos del negocio -->
+					<div class="col-md-6">
+						<b:panel title="Datos del negocio" look="primary" collapsible="false">
+							
+							<b:inputText placeholder="Razón social" value="#{registroVista.txtNegRazonSocial}"  />
+							<b:inputText placeholder="Teléfono" value="#{registroVista.txtNegTelefono}" />
+							<b:inputText placeholder="Sitio web (Opcional)" value="#{registroVista.txtNegSitioWeb}" />
+							<b:inputText placeholder="Correo" value="#{registroVista.txtNegCorreo}" type="email" />
+							<p:selectOneMenu id="somTipoNegocio" binding="#{registroVista.somTipoNegocio}" filter="true" style="font-size:11pt; width:100%">
+								<f:selectItem itemValue="-1" itemLabel="Elija el tipo de negocio que mejor se ajuste" />
+								<f:selectItems value="#{registroVista.tipoNegocios}" />
+							</p:selectOneMenu>
+							<div>
+								<br />
+								<b:inputTextarea placeholder="Descripción" maxlength="500" value="#{registroVista.txtNegDescripcion}" />
+							</div>
+							<p:outputLabel value="Imagen" style="font-size:12pt"/>
+							<h:inputFile id="file" value="#{registroVista.file}" style="font-size:11pt;color:#333333;" />
+							<br/>
+							
+						
+						</b:panel>
+					</div>
+					<!--Datos del negocio -->
+
+					<!-- Direccion -->
+					<div class="col-lg-10 col-lg-offset-1 col-md-12">
+						<b:panel title="Dirección" look="primary" collapsible="false">
+							
+							<b:inputText placeholder="Escriba una direccion o ubique su negocio en el mapa" value="#{registroVista.txtNegDireccion}" id="direccion" />
+						
+							<input id="pac-input" class="controls" type="text" placeholder="Ubicacion"  />
+
+							<div id="type-selector" class="controls">
+								<input type="radio" name="type" id="changetype-all" checked="checked" />
+								<label for="changetype-all">Todos</label>
+
+								<input type="radio" name="type" id="changetype-establishment" />
+								<label for="changetype-establishment">Establecimientos</label>
+
+								<input type="radio" name="type" id="changetype-address" />
+								<label for="changetype-address">Direcciones</label>
+
+								<input type="radio" name="type" id="changetype-geocode" />
+								<label for="changetype-geocode">Códigos geográficos</label>
+							</div>
+							<div id="map"></div>
+							<script src="assets/javascript/maps.js" />
+							<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVRz4AuNEjRVuUzLUMBW7Lx2HFtwsR4SQ&amp;libraries=places&amp;callback=initMap"
+							 async="async" defer="defer"></script>
+							<!-- CODIGO MAPS -->
+						</b:panel>
+					</div>
+					<!-- Direccion -->
+					
+
+				</div>
+			</div>
+		</div>
+		
+		
+
+		<div align="center">
+			<b:commandButton value="Registrar" look="primary" style="width: 20%;" 
+			                 ajax="true" onclick="onchangeDireccion();ajax:registroVista.registrar();" 
+			                 update="growl" >
+				<!--  <f:ajax execute="@form" render="@none"/> -->
+			</b:commandButton>
+		
+		</div> 
+		
+		
+	
+		<script type="text/javascript">
+			function onchangeDireccion()
+			{	
+				if (document.getElementById("input_formulario:direccion").value) {
+				   //se toma la direccion digitada por el usuario
+				}
+				else
+			    {
+					document.getElementById("input_formulario:direccion").value = document.getElementById("pac-input").value;
+				}
+				
+			}
+		</script>
+
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+</html>
