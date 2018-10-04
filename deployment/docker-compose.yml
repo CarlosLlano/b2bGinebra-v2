@@ -13,6 +13,8 @@ services:
             - POSTGRES_ENV_POSTGRES_USER=postgres
             - POSTGRES_ENV_POSTGRES_PASSWORD=admin
             - POSTGRES_DATABASE_NAME=postgres
+        volumes:
+            - ./wildfly/war/b2bGinebra.war:/opt/jboss/wildfly/standalone/deployments/b2bGinebra.war
     postgresdb:
         build: postgres/.
         environment:

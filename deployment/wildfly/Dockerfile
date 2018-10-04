@@ -11,9 +11,6 @@ ADD postgresql-9.4-1201.jdbc41.jar ${postgres_module_dir}
 ENV config_dir=/opt/jboss/wildfly/standalone/configuration
 ADD standalone.xml ${config_dir}
 
-#despliegue del archivo war
-ADD /war/b2bGinebra.war /opt/jboss/wildfly/standalone/deployments/
-
 #creacion del usuario administrador
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
