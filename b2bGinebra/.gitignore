@@ -11,3 +11,5 @@
 *.ucls
 /.metadata
 /.apt_generated/
+/.idea/
+b2bGinebra.iml
