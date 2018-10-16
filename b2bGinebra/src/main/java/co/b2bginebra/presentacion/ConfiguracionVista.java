@@ -147,10 +147,14 @@ public class ConfiguracionVista
 				String contextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 				
 				String ruta = protocol+ "://" + serverName + ":" + serverPort + contextPath + "/cambiarContrasena.xhtml";
-				
-				gestionCorreosLogica.enviarCorreoResetPassword(usuario,ruta);
-				mostrarMensaje("Consulte su correo para continuar con el proceso de cambio "
-						+ "de contraseña");
+
+				try {
+					gestionCorreosLogica.enviarCorreoResetPassword(usuario,ruta);
+					mostrarMensaje("Consulte su correo para continuar con el proceso de cambio de contraseña");
+				} catch (Exception e) {
+					mostrarMensaje("Ocurrio un error. Por favor intente mas tarde");
+				}
+
 			}
 		}
 	}

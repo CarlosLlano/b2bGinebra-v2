@@ -59,12 +59,12 @@ public class ParametroSistemaLogica
 		return parametrosSistemaDAO.consultarPorId(id);
 	}
 	
-	public List<ParametroSistema> consultarTodos() throws Exception 
+	public List<ParametroSistema> consultarTodos()
 	{
 		return parametrosSistemaDAO.consultarTodos();
 	}
 	
-	public ParametroSistema consultarParametroPorNombre(String nombre) throws Exception
+	public ParametroSistema consultarParametroPorNombre(String nombre)
 	{
 		return parametrosSistemaDAO.consultarParametroPorNombre(nombre);
 	}
