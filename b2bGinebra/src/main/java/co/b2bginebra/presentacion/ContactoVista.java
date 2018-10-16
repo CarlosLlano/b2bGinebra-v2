@@ -38,11 +38,16 @@ public class ContactoVista
 					"Correo: " + correo + "\n" + 
 					"Mensaje:" + "\n" + "\n" + 
 					mensaje;
-			gestionCorreosLogica.enviarCorreoContacto(mensajeCorreo);
-			
-			limpiar();
-			
-			mostrarMensaje("Mensaje enviado correctamente");
+			try {
+				gestionCorreosLogica.enviarCorreoContacto(mensajeCorreo);
+				limpiar();
+				mostrarMensaje("Mensaje enviado correctamente");
+			} catch (Exception e) {
+				limpiar();
+				mostrarMensaje("Ocurrio un error. Por favor intentelo mas tarde");
+			}
+
+
 		}
 	}
 	
