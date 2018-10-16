@@ -2,7 +2,7 @@
 INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'Correo Institucional','democomercioginebrino@gmail.com');
 INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'host-correo','smtp.gmail.com');
 INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'UserId-correo','democomercioginebrino');
-INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'Password-correo','democomercioginebrino10');
+INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'Password-correo','b2bGinebra');
 INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'Mensaje de solicitud aceptada',
 'Su solicitud de registro en la plataforma "Comercio Ginebrino" ha sido aceptada.
 A partir de este momento puede acceder con su cedula y contraseña.
