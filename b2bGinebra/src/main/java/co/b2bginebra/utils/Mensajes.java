@@ -27,7 +27,7 @@ public final class Mensajes {
     public static final String SUCCESS_CHANGES_MADE = "Cambios guardados exitosamente";
 
     //RegistroVista
-    public static final String SUCCESS_COMPLETED_REGISTRATION = "Su solicitud de registro";
+    public static final String SUCCESS_COMPLETED_REGISTRATION = "Su solicitud de registro ha sido enviada. En menos de una semana, tendra una respuesta al correo especificado";
     public static final String SUCCESS_ACCOUNT_CREATED = "Cuenta activada exitosamente";
 
     //SolicitudesVista
@@ -35,6 +35,7 @@ public final class Mensajes {
     public static final String ERROR_VALIDATION = "Es necesario verificar los datos";
     public static final String SUCCESS_REQUEST_APPROVED = "Solicitud aceptada correctamente";
     public static final String ERROR_REQUEST_DENIED = "Solicitud rechazada correctamente";
+    public static final String MISSING_ANSWER = "Se debe especificar una respuesta";
 
     //UsuarioVista
     public static final String SUCCESS_INFORMATION_CHANGED = "Informacion actualizada";

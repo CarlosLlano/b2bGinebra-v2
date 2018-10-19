@@ -66,7 +66,7 @@ public class UsuarioVista
 		try
 		{
 			usuarioLogica.modificarUsuario(usuLogueado);
-			mostrarMensaje("Informacion actualizada");
+			mostrarMensaje(Mensajes.SUCCESS_INFORMATION_CHANGED);
 		} 
 		catch (Exception e) 
 		{

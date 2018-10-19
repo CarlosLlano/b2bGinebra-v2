@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
+import co.b2bginebra.utils.Mensajes;
 import org.omnifaces.util.Ajax;
 import org.primefaces.context.RequestContext;
 
@@ -152,17 +153,17 @@ public class NotificacionVista
 				}
 				else
 				{
-					mostrarMensaje("El archivo debe ser una imagen (jpeg)");
+					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
 			catch (IOException e) 
 			{
-				mostrarMensaje("Ocurrio un error al subir la imagen");
+				mostrarMensaje(Mensajes.ERROR_UPLOADING_IMAGE);
 			}
 		}
 		else
 		{
-			mostrarMensaje("Debe seleccionar una imagen (jpeg)");
+			mostrarMensaje(Mensajes.MISSING_IMAGE);
 		}	
 	}
 	public boolean validateFile(Part file) 
