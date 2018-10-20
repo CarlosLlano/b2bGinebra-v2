@@ -53,12 +53,22 @@
 						<b:dataTableColumn value="#{usu.negocios[0].razonSocial}" label="Negocio"/>
 						<b:dataTableColumn label="Opciones">
 						
-							<b:commandButton value="Editar" onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);" look="primary"
-										rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
-										update="@(.editableTable)"/>
-							<b:commandButton value="Guardar" onclick="ajax:configuracionVista.guardarEstadoUsuario();" look="success"
-										rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
-										update="@(.editableTable)"/>
+							<b:commandButton value="Editar"
+											 onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);"
+											 look="primary"
+											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
+										     update="@(.editableTable)"
+											 style="margin-right: 10px;"/>
+							<b:commandButton value="Eliminar"
+											 onclick="ajax:configuracionVista.eliminarUsuario(usu)"
+											 look="danger"
+											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
+											 update="@(.editableTable)"/>
+							<b:commandButton value="Guardar"
+											 onclick="ajax:configuracionVista.guardarEstadoUsuario();"
+											 look="success"
+											 rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
+											 update="@(.editableTable)"/>
 						
 						</b:dataTableColumn>
 					</b:dataTable>

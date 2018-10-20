@@ -402,6 +402,16 @@ public class ConfiguracionVista
 		
 		setUsuarioSeleccionado(null);
 	}
+
+	public void eliminarUsuario(Usuario usuario){
+		try {
+			usuarioLogica.borrarUsuario(usuario);
+			mostrarMensaje("Usuario eliminado correctamente");
+		} catch (Exception e) {
+		    mostrarMensaje("Ocurrio un error al borrar al usuario");
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
