@@ -77,7 +77,6 @@ public class UsuarioVista
 
 	public void validarYNotificarCambios() throws Exception{
 
-    	String respuesta = "";
 		String cambios = "";
 		if(!usuLogueado.getNombre().equals(txtNombre.getValue().toString()))
 		{
@@ -100,11 +99,9 @@ public class UsuarioVista
 			usuLogueado.setTelefono(txtTelefono.getValue().toString());
 		}
 		if(!cambios.isEmpty()){
-			respuesta = String.format("El usuario idenficado con CC: %s ha actualizado sus datos personales: %s", usuLogueado.getIdentificacion(), System.lineSeparator()) + cambios;
-		}
-		if(!respuesta.isEmpty()){
+			String resumen = String.format("El usuario idenficado con CC: %s ha actualizado sus datos personales: %s", usuLogueado.getIdentificacion(), System.lineSeparator()) + cambios;
 			usuarioLogica.modificarUsuario(usuLogueado);
-			gestionCorreosLogica.enviarCorreoCambioInformacionPersonal(respuesta);
+			gestionCorreosLogica.enviarCorreoCambioInformacionPersonal(resumen);
 			mostrarMensaje("Informacion actualizada");
 		}
 		else{
