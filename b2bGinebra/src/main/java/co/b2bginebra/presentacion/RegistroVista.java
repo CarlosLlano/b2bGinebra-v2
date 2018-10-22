@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 
@@ -147,7 +148,7 @@ public class RegistroVista
 				
 				limpiar();
 				ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-				mostrarMensaje("Su solicitud de registro ha sido enviada. En menos de una semana, tendra una respuesta al correo especificado");	
+				mostrarMensaje(Mensajes.SUCCESS_COMPLETED_REGISTRATION);
 				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	            externalContext.redirect("registro.xhtml?faces-redirect=true");
 				
@@ -168,7 +169,7 @@ public class RegistroVista
 
 				limpiar();
 				ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-				mostrarMensaje("Cuenta activada exitosamente");
+				mostrarMensaje(Mensajes.SUCCESS_ACCOUNT_CREATED);
 				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	            externalContext.redirect("registro.xhtml?faces-redirect=true");
 				
@@ -189,7 +190,7 @@ public class RegistroVista
 	{
 		if(txtUsuPassword.equals(txtUsuPasswordConfirmar)==false)
 		{
-			throw new Exception("Las contraseñas no coinciden");
+			throw new Exception(Mensajes.INVALID_PASSWORD);
 			
 		}
 		
@@ -259,17 +260,17 @@ public class RegistroVista
 				}
 				else
 				{
-					mostrarMensaje("El archivo debe ser una imagen (jpeg)");
+					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
 			catch (IOException e) 
 			{
-				mostrarMensaje("Ocurrio un error al subir la imagen");
+				mostrarMensaje(Mensajes.ERROR_UPLOADING_IMAGE);
 			}
 		}
 		else
 		{
-			mostrarMensaje("Debe seleccionar una imagen (jpeg)");
+			mostrarMensaje(Mensajes.MISSING_IMAGE);
 		}
 		
 		
