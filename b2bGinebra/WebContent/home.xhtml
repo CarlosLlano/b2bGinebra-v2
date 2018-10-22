@@ -44,8 +44,19 @@
 				 	<b:column medium-screen="2">
 				      <h4>Nombre</h4>
 				    </b:column>
-				    <b:inputText placeholder="Escriba el nombre del negocio..."  binding="#{directorioVista.txtBuscar}" large-screen="one-third"/>
-            </b:row>
+				    <!--<b:inputText placeholder="Escriba el nombre del negocio..."  binding="#{directorioVista.txtBuscar}" large-screen="one-third"/>-->
+				    <!--<p:autoComplete style="width:100px;"/>-->
+				  
+				  <b:inputText placeholder="Escriba el nombre del negocio..."
+							   typeahead="true"
+							   typeahead-values="#{directorioVista.autoCompleteValues}"
+							   binding="#{directorioVista.txtBuscar}"
+							   tiny-screen="full-width"
+							   large-screen="one-third"
+							   style="margin-bottom: 10px"/>
+
+
+			</b:row>
             <b:row>
 		            <b:column span="2" offset="2">
 		      			<b:commandButton value="Buscar" look="primary" style="width:100%" action="#{directorioVista.buscarAction}" render="datagrid"/>
