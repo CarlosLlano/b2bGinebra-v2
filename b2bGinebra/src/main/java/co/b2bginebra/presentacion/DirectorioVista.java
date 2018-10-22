@@ -64,16 +64,12 @@ public class DirectorioVista
 			else
 			{
 				TipoNegocio tipoNegocio = tipoNegocioLogica.consultarTipoNegocio(id);
-				
-				
 				List<CategoriaProd> categoriasProd = tipoNegocio.getCategoriaProds();
-				
 				actualizarCategoriaProd(categoriasProd);
 			}
 		} 
 		catch (Exception e) 
 		{
-			
 			e.printStackTrace();
 		}
 	
@@ -102,7 +98,6 @@ public class DirectorioVista
 		} 
 		catch (Exception e) 
 		{
-			
 			e.printStackTrace();
 		}
 	}
@@ -122,25 +117,20 @@ public class DirectorioVista
 		}
 	}
 
-
 	public String getImage(Long idNegocio) 
 	{
-		
 		try 
 		{
-
 			Negocio negocio = negocioLogica.consultarNegocio(Long.valueOf(idNegocio));
 			String encoded = Base64.getEncoder().encodeToString(negocio.getImgPrincipal());
 			String ruta = "data:image/png;base64," + encoded;
 			return ruta;
-
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 		
 	
@@ -177,7 +167,6 @@ public class DirectorioVista
 			if(negocios==null)
 			{
 				negocios = negocioLogica.consultarNegociosPorEstado("Activo");
-				
 			}
 		} 
 		catch (Exception e) 
@@ -195,7 +184,6 @@ public class DirectorioVista
 	public void seleccionarNegocio(SelectEvent event)
 	{
 		negocioSeleccionado = (Negocio)event.getObject();
-		
 	}
 	
 	public Negocio getNegocioSeleccionado() {
