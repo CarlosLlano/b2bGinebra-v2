@@ -407,6 +407,10 @@ public class ConfiguracionVista
 		try {
 			usuarioLogica.borrarUsuario(usuario);
 			mostrarMensaje("Usuario eliminado correctamente");
+
+			usuarios = usuarioLogica.consultarTodos();
+            somEstadoUsuarios.setValue("-1");
+            Ajax.update("formulario:somEstadoUsuarios");
 		} catch (Exception e) {
 		    mostrarMensaje("Ocurrio un error al borrar al usuario");
 			e.printStackTrace();
