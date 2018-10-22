@@ -12,6 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
 import co.b2bginebra.logica.EstadoLogica;
@@ -73,16 +74,16 @@ public class SolicitudesVista
 			
 			if(estaRegistrado)
 			{
-				mostrarMensaje("La solicitud puede ser aceptada");
+				mostrarMensaje(Mensajes.SUCCESS_VALIDATION);
 			}
 			else
 			{
-				mostrarMensaje("Es necesario verificar los datos");		
+				mostrarMensaje(Mensajes.ERROR_VALIDATION);
 			}
 		} 
 		catch (Exception e) 
 		{
-			mostrarMensaje("Ocurrio un error");
+			mostrarMensaje(Mensajes.ERROR_MESSAGE);
 		}
 		
 		
@@ -94,12 +95,12 @@ public class SolicitudesVista
 		try 
 		{
 			solicitudRegLogica.aceptar(solicitudRegSeleccionada);
-			mostrarMensaje("Solicitud aceptada correctamente");
+			mostrarMensaje(Mensajes.SUCCESS_REQUEST_APPROVED);
 			
 		} 
 		catch (Exception e) 
 		{
-			mostrarMensaje("Ocurrio un error");
+			mostrarMensaje(Mensajes.ERROR_MESSAGE);
 		}		
 	}
 
@@ -109,21 +110,21 @@ public class SolicitudesVista
 		{
 			if(txtRespuesta.trim().equals(""))
 			{
-				mostrarMensaje("Se debe especificar una respuesta");
+				mostrarMensaje(Mensajes.MISSING_ANSWER);
 			}
 			else
 			{
 				solicitudRegSeleccionada.setRespuesta(txtRespuesta);
 				solicitudRegLogica.rechazar(solicitudRegSeleccionada);
 				
-				mostrarMensaje("Solicitud rechazada correctamente");
+				mostrarMensaje(Mensajes.ERROR_REQUEST_DENIED);
 			}
 			
 		} 
 		catch (Exception e) 
 		{
 			
-			mostrarMensaje("Ocurrio un error");
+			mostrarMensaje(Mensajes.ERROR_MESSAGE);
 		}
 	}
 

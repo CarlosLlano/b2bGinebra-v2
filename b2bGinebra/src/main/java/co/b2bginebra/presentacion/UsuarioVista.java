@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
 import co.b2bginebra.logica.UsuarioLogica;
@@ -66,7 +67,7 @@ public class UsuarioVista
 		try
 		{
 			usuarioLogica.modificarUsuario(usuLogueado);
-			mostrarMensaje("Informacion actualizada");
+			mostrarMensaje(Mensajes.SUCCESS_INFORMATION_CHANGED);
 		} 
 		catch (Exception e) 
 		{

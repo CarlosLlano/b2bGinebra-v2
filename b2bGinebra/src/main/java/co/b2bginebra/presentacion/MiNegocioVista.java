@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
+import co.b2bginebra.utils.Mensajes;
 import org.omnifaces.util.Ajax;
 import org.primefaces.context.RequestContext;
 
@@ -275,17 +276,17 @@ public class MiNegocioVista
 				}
 				else
 				{
-					mostrarMensaje("El archivo debe ser una imagen (jpeg)");
+					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
 			catch (IOException e) 
 			{
-				mostrarMensaje("Ocurrio un error al subir la imagen");
+				mostrarMensaje(Mensajes.ERROR_UPLOADING_IMAGE);
 			}
 		}
 		else
 		{
-			mostrarMensaje("Debe seleccionar una imagen (jpeg)");
+			mostrarMensaje(Mensajes.MISSING_IMAGE);
 		}	
 	}
 	public boolean validateFile(Part file) 
@@ -379,17 +380,17 @@ public class MiNegocioVista
 				}
 				else
 				{
-					mostrarMensaje("El archivo debe ser una imagen (jpeg)");
+					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
 			catch (IOException e) 
 			{
-				mostrarMensaje("Ocurrio un error al subir la imagen");
+				mostrarMensaje(Mensajes.ERROR_UPLOADING_IMAGE);
 			}
 		}
 		else
 		{
-			mostrarMensaje("Debe seleccionar una imagen (jpeg)");
+			mostrarMensaje(Mensajes.MISSING_IMAGE);
 		}	
 	}
 
@@ -409,11 +410,11 @@ public class MiNegocioVista
 		Date dateHasta = null;
 		if(pickerDesde.getValue() == null)
 		{
-			mostrarMensaje("Debe especificar una hora de apertura");
+			mostrarMensaje(Mensajes.MISSING_OPEN_SCHEDULE);
 		}
 		else if(pickerHasta.getValue() == null)
 		{
-			mostrarMensaje("Debe especificar una hora de cierre");
+			mostrarMensaje(Mensajes.MISSING_CLOSED_SCHEDULE);
 		}
 		else
 		{
@@ -451,7 +452,7 @@ public class MiNegocioVista
 			long id = Long.parseLong(somCategoriaProd.getValue().toString());
 			if(id < 0)
 			{
-				mostrarMensaje("Debe especificar una categoria de producto");
+				mostrarMensaje(Mensajes.MISSING_PRODUCT_CATEGORY);
 			}
 			else
 			{
@@ -459,7 +460,7 @@ public class MiNegocioVista
 				
 				if(txtAreaDescripcion.getValue() == null || txtAreaDescripcion.getValue().toString().trim().equals(""))
 				{
-					mostrarMensaje("Debe especificar una descripcion para el producto");
+					mostrarMensaje(Mensajes.MISSING_PRODUCT_DESCRIPTION);
 				}
 				else 
 				{
@@ -480,7 +481,7 @@ public class MiNegocioVista
 		}
 		catch(Exception e)
 		{
-			mostrarMensaje("Ocurrio un error");
+			mostrarMensaje(Mensajes.ERROR_MESSAGE);
 		}
 	}
 	
@@ -626,7 +627,7 @@ public class MiNegocioVista
     			
     			//recargar pagina
         		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        		mostrarMensaje("Cambios guardados exitosamente");
+        		mostrarMensaje(Mensajes.SUCCESS_CHANGES_MADE);
     			
 			externalContext.redirect("miNegocio.xhtml?faces-redirect=true");
 			
@@ -655,7 +656,7 @@ public class MiNegocioVista
 			int pos = Integer.parseInt(txtIdentificadorImagen.trim());
 			if(pos < 0 || pos >= imagenes.size())
 			{
-				mostrarMensaje("No existe imagen con ese identificador");
+				mostrarMensaje(Mensajes.INVALID_IMAGE_ID);
 			}
 			else
 			{
@@ -666,7 +667,7 @@ public class MiNegocioVista
 		}
 		catch(Exception e)
 		{
-			mostrarMensaje("No existe imagen con ese identificador");
+			mostrarMensaje(Mensajes.INVALID_IMAGE_ID);
 		}
 		
 	}
