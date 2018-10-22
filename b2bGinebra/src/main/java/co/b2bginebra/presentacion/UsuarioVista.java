@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
 import co.b2bginebra.logica.UsuarioLogica;

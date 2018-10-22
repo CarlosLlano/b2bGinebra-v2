@@ -5,13 +5,13 @@ public final class Mensajes {
     //General
     public static final String ERROR_MESSAGE = "Ocurrio un error. Por favor intentelo de nuevo";
 
-    //ConfiguracionVista)
+    //ConfiguracionVista
     public static final String MISSING_EMAIL = "Debe especificar un correo";
     public static final String INVALID_EMAIL = "No existe usuario con el correo especificado";
     public static final String SUCCESS_PASSWORD_CHANGE = "Consulte su correo para continuar con el proceso de cambio de contraseña";
     public static final String INVALID_PASSWORD = "Las contraseñas no coinciden";
 
-    //ContactoVista)
+    //ContactoVista
     public static final String ERROR_MISSING_FIELDS = "Debe especificar todos los campos";
     public static final String SUCCESS_MESSAGE = "Mensaje enviado correctamente";
 
