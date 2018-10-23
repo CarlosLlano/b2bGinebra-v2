@@ -39,4 +39,5 @@ public final class Mensajes {
 
     //UsuarioVista
     public static final String SUCCESS_INFORMATION_CHANGED = "Informacion actualizada";
+    public static final String INFO_INFORMATION_NOT_CHANGED = "No se ha realizado ningun cambio";
 }

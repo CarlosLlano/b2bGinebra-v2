@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import co.b2bginebra.logica.GestionCorreosLogica;
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
 import co.b2bginebra.logica.UsuarioLogica;
@@ -102,10 +103,10 @@ public class UsuarioVista
 			String resumen = String.format("El usuario idenficado con CC: %s ha actualizado sus datos personales: %s", usuLogueado.getIdentificacion(), System.lineSeparator()) + cambios;
 			usuarioLogica.modificarUsuario(usuLogueado);
 			gestionCorreosLogica.enviarCorreoCambioInformacionPersonal(resumen);
-			mostrarMensaje("Informacion actualizada");
+			mostrarMensaje(Mensajes.SUCCESS_INFORMATION_CHANGED);
 		}
 		else{
-			mostrarMensaje("No se ha realizado ningun cambio");
+			mostrarMensaje(Mensajes.INFO_INFORMATION_NOT_CHANGED);
 		}
 	}
 
