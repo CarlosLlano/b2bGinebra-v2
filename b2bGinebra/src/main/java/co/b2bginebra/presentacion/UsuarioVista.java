@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import co.b2bginebra.logica.GestionCorreosLogica;
 import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
@@ -12,6 +13,9 @@ import co.b2bginebra.logica.UsuarioLogica;
 import co.b2bginebra.modelo.Usuario;
 import co.b2bginebra.seguridad.JsfSecurityTools;
 import net.bootsfaces.component.inputText.InputText;
+
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * representa la vista para la gestion de informacion de un usuario
@@ -35,6 +39,9 @@ public class UsuarioVista
 	
 	@EJB
 	private UsuarioLogica usuarioLogica;
+
+	@EJB
+	private GestionCorreosLogica gestionCorreosLogica;
 	
     @PostConstruct
     public void postConstruct() 
@@ -48,26 +55,19 @@ public class UsuarioVista
     	    txtTelefono = new InputText();
     	   
     	   
-    	    txtNombre.setValue(usuLogueado.getNombre().toString());
-    	    txtDireccion.setValue(usuLogueado.getDireccion().toString());
-    	    txtCorreo.setValue(usuLogueado.getCorreo().toString());
-    	    txtTelefono.setValue(usuLogueado.getTelefono().toString());
+    	    txtNombre.setValue(usuLogueado.getNombre());
+    	    txtDireccion.setValue(usuLogueado.getDireccion());
+    	    txtCorreo.setValue(usuLogueado.getCorreo());
+    	    txtTelefono.setValue(usuLogueado.getTelefono());
 
     }
 	
 	
 	public void cambiarInformacionPersonal()
 	{
-		usuLogueado.setNombre(txtNombre.getValue().toString());	
-		usuLogueado.setDireccion(txtDireccion.getValue().toString());
-		usuLogueado.setCorreo(txtCorreo.getValue().toString());
-		usuLogueado.setTelefono(txtTelefono.getValue().toString());
-		
-		
 		try
 		{
-			usuarioLogica.modificarUsuario(usuLogueado);
-			mostrarMensaje(Mensajes.SUCCESS_INFORMATION_CHANGED);
+			validarYNotificarCambios();
 		} 
 		catch (Exception e) 
 		{
@@ -76,6 +76,39 @@ public class UsuarioVista
 		
 	}
 
+	public void validarYNotificarCambios() throws Exception{
+
+		String cambios = "";
+		if(!usuLogueado.getNombre().equals(txtNombre.getValue().toString()))
+		{
+			cambios+= String.format("Nombre: %s --> %s %s",usuLogueado.getNombre(),txtNombre.getValue().toString(),System.lineSeparator());
+			usuLogueado.setNombre(txtNombre.getValue().toString());
+		}
+		if(!usuLogueado.getCorreo().equals(txtCorreo.getValue().toString()))
+		{
+			cambios+= String.format("Correo: %s --> %s %s",usuLogueado.getCorreo(),txtCorreo.getValue().toString(),System.lineSeparator());
+			usuLogueado.setCorreo(txtCorreo.getValue().toString());
+		}
+		if(!usuLogueado.getDireccion().equals(txtDireccion.getValue().toString()))
+		{
+			cambios+= String.format("Direccion: %s --> %s %s",usuLogueado.getDireccion(),txtDireccion.getValue().toString(),System.lineSeparator());
+			usuLogueado.setDireccion(txtDireccion.getValue().toString());
+		}
+		if(!usuLogueado.getTelefono().equals(txtTelefono.getValue().toString()))
+		{
+			cambios+= String.format("Telefono: %s --> %s %s",usuLogueado.getTelefono(),txtTelefono.getValue().toString(),System.lineSeparator());
+			usuLogueado.setTelefono(txtTelefono.getValue().toString());
+		}
+		if(!cambios.isEmpty()){
+			String resumen = String.format("El usuario idenficado con CC: %s ha actualizado sus datos personales: %s", usuLogueado.getIdentificacion(), System.lineSeparator()) + cambios;
+			usuarioLogica.modificarUsuario(usuLogueado);
+			gestionCorreosLogica.enviarCorreoCambioInformacionPersonal(resumen);
+			mostrarMensaje(Mensajes.SUCCESS_INFORMATION_CHANGED);
+		}
+		else{
+			mostrarMensaje(Mensajes.INFO_INFORMATION_NOT_CHANGED);
+		}
+	}
 
 	public InputText getTxtNombre() {
 		return txtNombre;
