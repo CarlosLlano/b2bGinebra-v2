@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
+import co.b2bginebra.utils.Mensajes;
 import org.omnifaces.util.Ajax;
 
 import co.b2bginebra.logica.EstadoLogica;
@@ -127,7 +128,7 @@ public class ConfiguracionVista
 		
 		if(txtCorreo.getValue()==null || txtCorreo.getValue().toString().trim().equals(""))
 		{
-			mostrarMensaje("Debe especificar un correo");
+			mostrarMensaje(Mensajes.MISSING_EMAIL);
 		}
 		else
 		{
@@ -136,7 +137,7 @@ public class ConfiguracionVista
 			if(usuario==null)
 			{
 				
-				mostrarMensaje("No existe usuario con el correo especificado");
+				mostrarMensaje(Mensajes.INVALID_EMAIL);
 			}
 			else
 			{
@@ -150,9 +151,9 @@ public class ConfiguracionVista
 
 				try {
 					gestionCorreosLogica.enviarCorreoResetPassword(usuario,ruta);
-					mostrarMensaje("Consulte su correo para continuar con el proceso de cambio de contraseña");
+					mostrarMensaje(Mensajes.SUCCESS_PASSWORD_CHANGE);
 				} catch (Exception e) {
-					mostrarMensaje("Ocurrio un error. Por favor intente mas tarde");
+					mostrarMensaje(Mensajes.ERROR_MESSAGE);
 				}
 
 			}
@@ -164,7 +165,7 @@ public class ConfiguracionVista
 		
 		if(txtNuevoPassword.equals(txtNuevoPasswordConfirmar)==false)
 		{
-			mostrarMensaje("Las contraseñas no coinciden");
+			mostrarMensaje(Mensajes.INVALID_PASSWORD);
 		}
 		else
 		{

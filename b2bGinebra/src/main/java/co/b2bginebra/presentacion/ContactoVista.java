@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import co.b2bginebra.utils.Mensajes;
 import org.primefaces.context.RequestContext;
 
 import co.b2bginebra.logica.GestionCorreosLogica;
@@ -29,7 +30,7 @@ public class ContactoVista
 	{
 		if(nombres.trim().equals("") || apellidos.trim().equals("") || telefono.trim().equals("") || correo.trim().equals("") || mensaje.trim().equals(""))
 		{	
-			mostrarMensaje("Debe especificar todos los campos");
+			mostrarMensaje(Mensajes.ERROR_MISSING_FIELDS);
 		}
 		else
 		{
@@ -41,10 +42,10 @@ public class ContactoVista
 			try {
 				gestionCorreosLogica.enviarCorreoContacto(mensajeCorreo);
 				limpiar();
-				mostrarMensaje("Mensaje enviado correctamente");
+				mostrarMensaje(Mensajes.SUCCESS_MESSAGE);
 			} catch (Exception e) {
 				limpiar();
-				mostrarMensaje("Ocurrio un error. Por favor intentelo mas tarde");
+				mostrarMensaje(Mensajes.ERROR_MESSAGE);
 			}
 
 
