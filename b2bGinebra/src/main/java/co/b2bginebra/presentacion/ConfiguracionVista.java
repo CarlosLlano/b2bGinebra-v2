@@ -407,13 +407,13 @@ public class ConfiguracionVista
 	public void eliminarUsuario(Usuario usuario){
 		try {
 			usuarioLogica.borrarUsuario(usuario);
-			mostrarMensaje("Usuario eliminado correctamente");
+			mostrarMensaje(Mensajes.USER_REMOVED);
 
 			usuarios = usuarioLogica.consultarTodos();
             somEstadoUsuarios.setValue("-1");
             Ajax.update("formulario:somEstadoUsuarios");
 		} catch (Exception e) {
-		    mostrarMensaje("Ocurrio un error al borrar al usuario");
+		    mostrarMensaje(Mensajes.ERROR_REMOVING_USER);
 			e.printStackTrace();
 		}
 	}
