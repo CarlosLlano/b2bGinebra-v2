@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import co.b2bginebra.logica.HorarioAtencionLogica;
@@ -48,10 +49,15 @@ public class NegocioVista
 		{
 			Long id = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("negocio"));
 			negocioSeleccionado = negocioLogica.consultarNegocio(id);
-			
-			horarios = horariosLogica.consultarHorariosPorNegocio(negocioSeleccionado.getIdNegocio());
-			imagenes = imagenLogica.consultarImagenesPorNegocio(negocioSeleccionado.getIdNegocio());
-			ofertas = negocioSeleccionado.getOfertas();
+
+			if(negocioSeleccionado==null){
+				ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+				externalContext.redirect("home.xhtml");
+			}else{
+				horarios = horariosLogica.consultarHorariosPorNegocio(negocioSeleccionado.getIdNegocio());
+				imagenes = imagenLogica.consultarImagenesPorNegocio(negocioSeleccionado.getIdNegocio());
+				ofertas = negocioSeleccionado.getOfertas();
+			}
 			
 		} 
 		catch (Exception e) 

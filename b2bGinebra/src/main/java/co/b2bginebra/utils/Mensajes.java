@@ -10,6 +10,9 @@ public final class Mensajes {
     public static final String INVALID_EMAIL = "No existe usuario con el correo especificado";
     public static final String SUCCESS_PASSWORD_CHANGE = "Consulte su correo para continuar con el proceso de cambio de contraseña";
     public static final String INVALID_PASSWORD = "Las contraseñas no coinciden";
+    public static final String USER_REMOVED = "Usuario eliminado correctamente";
+    public static final String ERROR_REMOVING_USER = "Ocurrio un error al borrar al usuario";
+    public static final String CONFIRM_REMOVAL_USER = "Tenga en cuenta que se borrará toda la información del usuario y no podrá recuperar esa información. ¿Desea continuar?";
 
     //ContactoVista
     public static final String ERROR_MISSING_FIELDS = "Debe especificar todos los campos";

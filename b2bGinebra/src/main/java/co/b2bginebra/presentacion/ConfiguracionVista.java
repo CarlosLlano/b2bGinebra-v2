@@ -3,7 +3,6 @@ package co.b2bginebra.presentacion;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -53,7 +52,8 @@ public class ConfiguracionVista
 	private List<Usuario> usuarios;
 	private SelectOneMenu somEstadoSeleccionado;
 	private Usuario usuarioSeleccionado;
-	
+	private Usuario usuarioAEliminar;
+
 	@EJB
 	private ParametroSistemaLogica parametroSistemaLogica;
 	@EJB
@@ -64,7 +64,7 @@ public class ConfiguracionVista
 	private EstadoLogica estadoLogica;
 	
 	private Usuario usuCambioPassword;
-	
+
 	public void verificarPlazoParaCambioPassword()
 	{		
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -403,6 +403,31 @@ public class ConfiguracionVista
 		
 		setUsuarioSeleccionado(null);
 	}
-	
-	
+
+	public void eliminarUsuario(){
+		try {
+			usuarioLogica.borrarUsuario(usuarioAEliminar);
+			mostrarMensaje(Mensajes.USER_REMOVED);
+
+			usuarios = usuarioLogica.consultarTodos();
+
+			somEstadoUsuarios.setValue("-1");
+			Ajax.update("formulario:somEstadoUsuarios");
+            somEstadoUsuariosOnChange();
+            Ajax.update("formulario:tabla");
+
+            setUsuarioAEliminar(null);
+		} catch (Exception e) {
+		    mostrarMensaje(Mensajes.ERROR_REMOVING_USER);
+			e.printStackTrace();
+		}
+	}
+
+	public String getModalText() {
+		return Mensajes.CONFIRM_REMOVAL_USER;
+	}
+
+	public void setUsuarioAEliminar(Usuario usuarioAEliminar) {
+		this.usuarioAEliminar = usuarioAEliminar;
+	}
 }

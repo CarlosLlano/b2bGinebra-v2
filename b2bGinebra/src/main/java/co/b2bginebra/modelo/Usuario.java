@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
 	private String telefono;
 
 	//bi-directional many-to-one association to Negocio
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="usuario")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER,mappedBy="usuario")
 	private List<Negocio> negocios;
 
 	//bi-directional many-to-one association to Estado
