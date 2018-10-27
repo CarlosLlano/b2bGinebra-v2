@@ -61,7 +61,8 @@
 										     update="@(.editableTable)"
 											 style="margin-right: 10px;"/>
 							<b:commandButton value="Eliminar"
-											 onclick="ajax:configuracionVista.eliminarUsuario(usu)"
+											 onclick="ajax:configuracionVista.setUsuarioAEliminar(usu);"
+											 onsuccess="$('.modalPseudoClass').modal()"
 											 look="danger"
 											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
 											 update="@(.editableTable)"/>
@@ -70,16 +71,16 @@
 											 look="success"
 											 rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
 											 update="@(.editableTable)"/>
-						
 						</b:dataTableColumn>
 					</b:dataTable>
 			</div>
-
-			
-			
-			
-			
-            
+			<b:modal id="modal" title="Mensaje" styleClass="modalPseudoClass" losable="false" close-on-escape="false" backdrop="false" size="modal-sm">
+				<h5>#{configuracionVista.modalText}</h5>
+				<f:facet name="footer">
+					<b:commandButton value="Continuar" look="primary" onclick="ajax:configuracionVista.eliminarUsuario();" onsuccess="$('.modalPseudoClass').modal('hide');" />
+					<b:button value="Cancelar" look="primary" dismiss="modal" />
+				</f:facet>
+			</b:modal>
         </div>
     </div>
     
