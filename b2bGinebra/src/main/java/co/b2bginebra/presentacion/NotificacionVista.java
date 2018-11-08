@@ -133,6 +133,7 @@ public class NotificacionVista
 	
 	public void uploadImagen() 
 	{
+		System.out.println("ENTRO 1");
 		if(file != null)
 		{
 			try 
@@ -149,10 +150,13 @@ public class NotificacionVista
 					
 					
 					Ajax.update("formulario:panelImagen");
-					
+					System.out.println("ENTRO 3");
+
 				}
 				else
 				{
+					System.out.println("ENTRO 4");
+
 					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
@@ -168,6 +172,8 @@ public class NotificacionVista
 	}
 	public boolean validateFile(Part file) 
 	{
+		System.out.println("ENTRO 2");
+
 		if(file!= null)
 		{
 			if (file.getContentType().equals("image/jpeg")==false) 
@@ -181,6 +187,8 @@ public class NotificacionVista
 	
 	public void mostrarMensaje(String mensaje)
 	{
+		System.out.println("ENTRO 5");
+
 		FacesMessages.info(mensaje);		
 	}
 
