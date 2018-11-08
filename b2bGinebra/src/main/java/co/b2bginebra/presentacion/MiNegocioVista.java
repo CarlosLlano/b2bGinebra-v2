@@ -329,6 +329,8 @@ public class MiNegocioVista
 		respuesta.setNotificacions(negocio.getNotificacions());
 		respuesta.setOfertas(negocio.getOfertas());
 		respuesta.setUsuario(negocio.getUsuario());
+		respuesta.setSolicitudRegs(negocio.getSolicitudRegs());
+		respuesta.setSolicitudReg(negocio.getSolicitudReg());
 		
 		
 		return respuesta;

@@ -29,7 +29,11 @@
   
                          <div class="form-group">
                              <label class="control-label" style="font-size:12pt;">Nombre </label>
-                          <b:inputText binding="#{usuarioVista.txtNombre}"/>   
+                          <b:inputText binding="#{usuarioVista.txtNombre}" disabled="true">
+                              <f:facet name="prepend">
+                                  <b:icon name="user" />
+                              </f:facet>
+                          </b:inputText>
                          </div>
                          
                          <div class="row">     
@@ -37,20 +41,31 @@
                                 		<div class="form-group" style="font-size:12pt;">
 	                                    <label class="control-label">Teléfono </label>
 	                                </div>
-	                                 <b:inputText  binding="#{usuarioVista.txtTelefono}"/>
+	                                 <b:inputText  binding="#{usuarioVista.txtTelefono}">
+                                         <f:facet name="prepend">
+                                             <b:icon name="phone" />
+                                         </f:facet>
+                                     </b:inputText>
                                 </div>
                                  <div class="col-md-6" >
                                  	<div class="form-group">
 	                                    <label class="control-label" style="font-size:12pt;">Dirección </label>
 	                                </div>
-                                		<b:inputText  binding="#{usuarioVista.txtDireccion}"/>  
-                                 
+                                		<b:inputText  binding="#{usuarioVista.txtDireccion}">
+                                            <f:facet name="prepend">
+                                                <b:icon name="home" />
+                                            </f:facet>
+                                        </b:inputText>
                                  </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="control-label" style="font-size:12pt;">Email </label>
-                            <b:inputText  binding="#{usuarioVista.txtCorreo}" />  
+                            <b:inputText  binding="#{usuarioVista.txtCorreo}">
+                                <f:facet name="prepend">
+                                    <b:icon name="send" />
+                                </f:facet>
+                            </b:inputText>
                         </div>
                         
 
