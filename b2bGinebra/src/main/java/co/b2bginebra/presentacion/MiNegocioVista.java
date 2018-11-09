@@ -303,11 +303,8 @@ public class MiNegocioVista
 	}
 	public void mostrarMensaje(String mensaje)
 	{
-	
 		FacesMessages.info(mensaje);		
         RequestContext.getCurrentInstance().scrollTo("formulario:top");
-       
-
 	}
 	
 	public Negocio clonar(Negocio negocio)
@@ -329,6 +326,8 @@ public class MiNegocioVista
 		respuesta.setNotificacions(negocio.getNotificacions());
 		respuesta.setOfertas(negocio.getOfertas());
 		respuesta.setUsuario(negocio.getUsuario());
+		respuesta.setSolicitudRegs(negocio.getSolicitudRegs());
+		respuesta.setSolicitudReg(negocio.getSolicitudReg());
 		
 		
 		return respuesta;
@@ -620,20 +619,16 @@ public class MiNegocioVista
 			negocioLogica.modificarNegocio(negocioSeleccionado);
 
     			
-    			//actualizacion de la informacion del usuario en sesion
-    			Usuario usuario = (Usuario) JsfSecurityTools.getfromSession("usuario");
-    			Usuario usu = usuarioLogica.consultarUsuario(usuario.getIdUsuario());
-    			JsfSecurityTools.putinSession("usuario", usu);
-    			
-    			//recargar pagina
-        		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        		mostrarMensaje(Mensajes.SUCCESS_CHANGES_MADE);
-    			
-			externalContext.redirect("miNegocio.xhtml?faces-redirect=true");
-			
-			
-			
-			
+            //actualizacion de la informacion del usuario en sesion
+            Usuario usuario = (Usuario) JsfSecurityTools.getfromSession("usuario");
+            Usuario usu = usuarioLogica.consultarUsuario(usuario.getIdUsuario());
+            JsfSecurityTools.putinSession("usuario", usu);
+
+            //recargar pagina
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            mostrarMensaje(Mensajes.SUCCESS_CHANGES_MADE);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            externalContext.redirect("miNegocio.xhtml?faces-redirect=true");
 			
 		} 
         catch (Exception e) 
