@@ -299,10 +299,8 @@ public class RegistroVista
 	
 	public void mostrarMensaje(String mensaje)
 	{
-	
 		FacesMessages.info(mensaje);		
         RequestContext.getCurrentInstance().scrollTo("formulario:top");
-
 	}
 	
 	
