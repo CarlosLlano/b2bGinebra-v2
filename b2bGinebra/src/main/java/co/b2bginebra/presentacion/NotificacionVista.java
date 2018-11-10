@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
@@ -66,8 +67,7 @@ public class NotificacionVista
 	public void init()
 	{
 		Usuario usuario = (Usuario) JsfSecurityTools.getfromSession("usuario");
-		negocio = usuario.getNegocios().get(0);
-
+		negocio = usuario.getNegocios().size() != 0 ? usuario.getNegocios().get(0) : null;
 	}
 	
 	public void crear()
@@ -133,7 +133,7 @@ public class NotificacionVista
 	
 	public void uploadImagen() 
 	{
-		System.out.println("ENTRO 1");
+		System.out.println("ENTRO");
 		if(file != null)
 		{
 			try 
@@ -150,13 +150,11 @@ public class NotificacionVista
 					
 					
 					Ajax.update("formulario:panelImagen");
-					System.out.println("ENTRO 3");
+					System.out.println("cargada correctamente");
 
 				}
 				else
 				{
-					System.out.println("ENTRO 4");
-
 					mostrarMensaje(Mensajes.INVALID_IMAGE);
 				}
 			} 
@@ -172,7 +170,7 @@ public class NotificacionVista
 	}
 	public boolean validateFile(Part file) 
 	{
-		System.out.println("ENTRO 2");
+		System.out.println("validando...");
 
 		if(file!= null)
 		{
@@ -187,9 +185,8 @@ public class NotificacionVista
 	
 	public void mostrarMensaje(String mensaje)
 	{
-		System.out.println("ENTRO 5");
-
-		FacesMessages.info(mensaje);		
+		FacesMessages.info(mensaje);
+        RequestContext.getCurrentInstance().scrollTo("formulario:top");
 	}
 
 	public String getImagen() 
