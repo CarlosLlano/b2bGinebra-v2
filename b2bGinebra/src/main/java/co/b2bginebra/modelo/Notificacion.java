@@ -43,17 +43,17 @@ public class Notificacion implements Serializable {
 	private BigDecimal visitas;
 
 	//bi-directional many-to-one association to CategoriaProd
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="categoria_prod_id_categoria", nullable=false)
 	private CategoriaProd categoriaProd;
 
 	//bi-directional many-to-one association to Negocio
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="negocio_id_negocio", nullable=false)
 	private Negocio negocio;
 
 	//bi-directional many-to-one association to TipoNot
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="tipo_not_id_tipo_not", nullable=false)
 	private TipoNot tipoNot;
 
