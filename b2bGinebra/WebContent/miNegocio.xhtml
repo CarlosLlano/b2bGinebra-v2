@@ -59,6 +59,7 @@
                         <div class="form-group has-feedback">
                             <b:selectOneMenu id="somTipoNegocio"  binding="#{miNegocioVista.somTipoNegocio}" label="Tipo Negocio" label-style="font-size: 10pt;">
 								<f:selectItems value="#{miNegocioVista.tipoNegocios}" />
+								<f:ajax listener="#{miNegocioVista.somTipoNegocioOnChange}" render="formulario:somCategoriaProd" />
 							</b:selectOneMenu>			                
                         </div>
                         <!-- TIPO NEGOCIO -->

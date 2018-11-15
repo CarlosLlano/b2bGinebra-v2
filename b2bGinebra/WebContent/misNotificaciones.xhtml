@@ -22,7 +22,7 @@
                             <br/>
                             <!-- FORMULARIO -->
                             <div align="left">
-                                <b:commandButton value="Agregar" look="primary" onclick="ajax:notificacionVista.crear();" update="growl"/>
+                                <b:commandButton value="Agregar" look="primary" action="#{notificacionVista.crear}" update="growl"/>
                             </div>
                             <div align="right">
                                 <b:navCommandLink value="Ver todas las publicaciones" style="font-size:12pt;" href="notificaciones.xhtml"/>
@@ -52,7 +52,7 @@
                                     <b:panel title="Imagen" look="primary" collapsible="false">
                                         <h:inputFile value="#{notificacionVista.file}" style="font-size:11pt;color:#333333;" />
                                         <br />
-                                        <b:commandButton value="Cargar Archivo" look="primary" onclick="ajax:notificacionVista.uploadImagen();" update="growl"/>
+                                        <b:commandButton value="Cargar Archivo" look="primary" action="#{notificacionVista.uploadImagen}" update="growl"/>
 
                                         <br />
                                         <br />

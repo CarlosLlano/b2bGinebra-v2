@@ -133,7 +133,6 @@ public class NotificacionVista
 	
 	public void uploadImagen() 
 	{
-		System.out.println("ENTRO");
 		if(file != null)
 		{
 			try 
@@ -150,7 +149,6 @@ public class NotificacionVista
 					
 					
 					Ajax.update("formulario:panelImagen");
-					System.out.println("cargada correctamente");
 
 				}
 				else
@@ -170,7 +168,6 @@ public class NotificacionVista
 	}
 	public boolean validateFile(Part file) 
 	{
-		System.out.println("validando...");
 
 		if(file!= null)
 		{
@@ -238,11 +235,12 @@ public class NotificacionVista
 	}
 
 	public List<SelectItem> getCategoriasProd() {
-		try 
+		try
 		{
 			if(categoriasProd==null)
 			{
-				List<CategoriaProd> pcategoriasProd = categoriaProdLogica.consultarTodos();
+
+                List<CategoriaProd> pcategoriasProd = categoriaProdLogica.consultarTodos();
 				categoriasProd = new ArrayList<SelectItem>();
 				for (CategoriaProd categoriaProd : pcategoriasProd) 
 				{
@@ -250,7 +248,8 @@ public class NotificacionVista
 					categoriasProd.add(item);
 				}	
 			}
-		} 
+
+        }
 		catch (Exception e) 
 		{
 			//handle error
@@ -277,7 +276,8 @@ public class NotificacionVista
 				}
 				
 			}
-		} 
+
+        }
 		catch (Exception e) {
 			
 		}
