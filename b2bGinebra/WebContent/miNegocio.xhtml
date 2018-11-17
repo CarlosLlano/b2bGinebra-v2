@@ -15,13 +15,14 @@
    
     <p:growl id="top"/>
 	<b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
-    
+
     <div>
         <div class="container">
             <div class="row" style="height:100px;background-color:transparent;">
                 <div class="col-lg-4 col-md-6">
                 		<b:commandButton value="Guardar cambios" look="success" style="height:46px;margin:12px;"
-                						ajax="true" onclick="onchangeDireccion();ajax:miNegocioVista.guardarCambios();"/>
+                						 ajax="true" onclick="onchangeDireccion();ajax:miNegocioVista.guardarCambios();"
+										 update="growl"/>
                 </div>
             </div>
         </div>

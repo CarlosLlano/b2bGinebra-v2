@@ -40,35 +40,47 @@
 		     
 			<div class="container">   
 			        <b:dataTable id="tabla" value="#{configuracionVista.usuarios}" var="usu" class="editableTable">
-			        		<b:dataTableColumn label="Estado">
-			        		  	<b:selectOneMenu binding="#{configuracionVista.somEstadoSeleccionado}" rendered="#{configuracionVista.usuarioSeleccionado eq usu}">
-								<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
-							</b:selectOneMenu>
-							<h:outputText value="#{usu.estado.nombre}" rendered="#{configuracionVista.usuarioSeleccionado ne usu}"/>
-			        		</b:dataTableColumn>
-			        		<b:dataTableColumn value="#{usu.nombre}" label="Nombre" />
-			        		<b:dataTableColumn value="#{usu.correo}" label="Correo"/>
-						<b:dataTableColumn value="#{usu.telefono}" label="Telefono"/>
-						<b:dataTableColumn value="#{usu.direccion}" label="Direccion"/>
+						<b:dataTableColumn label="Estado">
+							<b:selectOneMenu binding="#{configuracionVista.somEstadoSeleccionado}" rendered="#{configuracionVista.usuarioSeleccionado eq usu}">
+							<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
+						</b:selectOneMenu>
+						<h:outputText value="#{usu.estado.nombre}" rendered="#{configuracionVista.usuarioSeleccionado ne usu}"/>
+						</b:dataTableColumn>
+						<b:dataTableColumn value="#{usu.nombre}" label="Nombre" />
+						<b:dataTableColumn value="#{usu.identificacion}" label="Identificación"/>
+						<b:dataTableColumn value="#{usu.correo}" label="Correo"/>
+						<b:dataTableColumn value="#{usu.telefono}" label="Teléfono"/>
+						<b:dataTableColumn value="#{usu.direccion}" label="Dirección"/>
 						<b:dataTableColumn value="#{usu.negocios[0].razonSocial}" label="Negocio"/>
 						<b:dataTableColumn label="Opciones">
 						
-							<b:commandButton value="Editar" onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);" look="primary"
-										rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
-										update="@(.editableTable)"/>
-							<b:commandButton value="Guardar" onclick="ajax:configuracionVista.guardarEstadoUsuario();" look="success"
-										rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
-										update="@(.editableTable)"/>
-						
+							<b:commandButton value="Editar"
+											 onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);"
+											 look="primary"
+											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
+										     update="@(.editableTable)"
+											 style="margin-right: 10px;"/>
+							<b:commandButton value="Eliminar"
+											 onclick="ajax:configuracionVista.setUsuarioAEliminar(usu);"
+											 onsuccess="$('.modalPseudoClass').modal()"
+											 look="danger"
+											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
+											 update="@(.editableTable)"/>
+							<b:commandButton value="Guardar"
+											 onclick="ajax:configuracionVista.guardarEstadoUsuario();"
+											 look="success"
+											 rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
+											 update="@(.editableTable)"/>
 						</b:dataTableColumn>
 					</b:dataTable>
 			</div>
-
-			
-			
-			
-			
-            
+			<b:modal id="modal" title="Mensaje" styleClass="modalPseudoClass" losable="false" close-on-escape="false" backdrop="false" size="modal-sm">
+				<h5>#{configuracionVista.modalText}</h5>
+				<f:facet name="footer">
+					<b:commandButton value="Continuar" look="primary" onclick="ajax:configuracionVista.eliminarUsuario();" onsuccess="$('.modalPseudoClass').modal('hide');" />
+					<b:button value="Cancelar" look="primary" dismiss="modal" />
+				</f:facet>
+			</b:modal>
         </div>
     </div>
     

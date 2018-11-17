@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
+import org.omnifaces.util.Ajax;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.SelectEvent;
 
@@ -39,7 +40,11 @@ public class DirectorioVista
 	private InputText txtBuscar;
 	private List<SelectItem> tipoNegocios;
 	private List<SelectItem> categoriasProd;
+
+	//visibles
 	private List<Negocio> negocios;
+	//todos
+	private List<Negocio> todosLosNegocios;
 
 	@EJB
 	private TipoNegocioLogica tipoNegocioLogica;
@@ -64,16 +69,12 @@ public class DirectorioVista
 			else
 			{
 				TipoNegocio tipoNegocio = tipoNegocioLogica.consultarTipoNegocio(id);
-				
-				
 				List<CategoriaProd> categoriasProd = tipoNegocio.getCategoriaProds();
-				
 				actualizarCategoriaProd(categoriasProd);
 			}
 		} 
 		catch (Exception e) 
 		{
-			
 			e.printStackTrace();
 		}
 	
@@ -99,10 +100,9 @@ public class DirectorioVista
 			String nombre = txtBuscar.getValue().toString().trim();
 			
 			negocios = negocioLogica.consultarPorTipoCategoriaYNombre(idTipoNegocio, idCategoriaProd, nombre);
-		} 
+		}
 		catch (Exception e) 
 		{
-			
 			e.printStackTrace();
 		}
 	}
@@ -122,25 +122,20 @@ public class DirectorioVista
 		}
 	}
 
-
 	public String getImage(Long idNegocio) 
 	{
-		
 		try 
 		{
-
 			Negocio negocio = negocioLogica.consultarNegocio(Long.valueOf(idNegocio));
 			String encoded = Base64.getEncoder().encodeToString(negocio.getImgPrincipal());
 			String ruta = "data:image/png;base64," + encoded;
 			return ruta;
-
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 		
 	
@@ -177,7 +172,8 @@ public class DirectorioVista
 			if(negocios==null)
 			{
 				negocios = negocioLogica.consultarNegociosPorEstado("Activo");
-				
+				todosLosNegocios = new ArrayList<>();
+				todosLosNegocios.addAll(negocios);
 			}
 		} 
 		catch (Exception e) 
@@ -195,7 +191,6 @@ public class DirectorioVista
 	public void seleccionarNegocio(SelectEvent event)
 	{
 		negocioSeleccionado = (Negocio)event.getObject();
-		
 	}
 	
 	public Negocio getNegocioSeleccionado() {
@@ -262,6 +257,17 @@ public class DirectorioVista
 
 	public void setTxtBuscar(InputText txtBuscar) {
 		this.txtBuscar = txtBuscar;
+	}
+
+
+	public List<String> getAutoCompleteValues()
+	{
+		getNegocios();
+		List<String> values = new ArrayList<>();
+		for (Negocio negocio: todosLosNegocios) {
+			values.add(negocio.getRazonSocial());
+		}
+		return values;
 	}
 
 	

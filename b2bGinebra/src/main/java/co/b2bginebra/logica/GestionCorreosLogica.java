@@ -64,6 +64,11 @@ public class GestionCorreosLogica {
         sendMail(Asunto, mensaje, sender, destinatarios, mailhost, userId, password);
     }
 
+    public void enviarCorreoCambioInformacionPersonal(String cambios) throws Exception{
+        getParametrosDeEnvio();
+        sendMail("Actualizacion de informacion personal", cambios, sender, sender, mailhost, userId, password);
+    }
+
     public void enviarCorreoSolicitudCreada(SolicitudReg solicitudReg) throws Exception {
         getParametrosDeEnvio();
         //Se envia correo a la Alcaldia informando que alguien quiere registrarse

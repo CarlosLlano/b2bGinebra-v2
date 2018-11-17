@@ -106,8 +106,7 @@ public class NegocioLogica
 	{
 		List<Negocio> negocios = negocioDAO.consultarTodos();
 		List<Negocio> respuesta = new ArrayList<Negocio>();
-		
-		
+
 		for (Negocio negocio : negocios) 
 		{
 			if(negocio.getEstado().getNombre().equals("Activo"))
@@ -134,7 +133,7 @@ public class NegocioLogica
 							}
 						}
 					}
-					else if(nombre.equals("") || negocio.getRazonSocial().contains(nombre))
+					else if(nombre.equals("") || negocio.getRazonSocial().toLowerCase().contains(nombre.toLowerCase()))
 					{
 						respuesta.add(negocio);
 					}				

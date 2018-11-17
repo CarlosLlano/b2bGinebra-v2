@@ -3,7 +3,6 @@ package co.b2bginebra.presentacion;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -12,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
+import co.b2bginebra.utils.Mensajes;
 import org.omnifaces.util.Ajax;
 
 import co.b2bginebra.logica.EstadoLogica;
@@ -52,7 +52,8 @@ public class ConfiguracionVista
 	private List<Usuario> usuarios;
 	private SelectOneMenu somEstadoSeleccionado;
 	private Usuario usuarioSeleccionado;
-	
+	private Usuario usuarioAEliminar;
+
 	@EJB
 	private ParametroSistemaLogica parametroSistemaLogica;
 	@EJB
@@ -63,7 +64,7 @@ public class ConfiguracionVista
 	private EstadoLogica estadoLogica;
 	
 	private Usuario usuCambioPassword;
-	
+
 	public void verificarPlazoParaCambioPassword()
 	{		
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -127,7 +128,7 @@ public class ConfiguracionVista
 		
 		if(txtCorreo.getValue()==null || txtCorreo.getValue().toString().trim().equals(""))
 		{
-			mostrarMensaje("Debe especificar un correo");
+			mostrarMensaje(Mensajes.MISSING_EMAIL);
 		}
 		else
 		{
@@ -136,7 +137,7 @@ public class ConfiguracionVista
 			if(usuario==null)
 			{
 				
-				mostrarMensaje("No existe usuario con el correo especificado");
+				mostrarMensaje(Mensajes.INVALID_EMAIL);
 			}
 			else
 			{
@@ -150,9 +151,9 @@ public class ConfiguracionVista
 
 				try {
 					gestionCorreosLogica.enviarCorreoResetPassword(usuario,ruta);
-					mostrarMensaje("Consulte su correo para continuar con el proceso de cambio de contraseña");
+					mostrarMensaje(Mensajes.SUCCESS_PASSWORD_CHANGE);
 				} catch (Exception e) {
-					mostrarMensaje("Ocurrio un error. Por favor intente mas tarde");
+					mostrarMensaje(Mensajes.ERROR_MESSAGE);
 				}
 
 			}
@@ -164,7 +165,7 @@ public class ConfiguracionVista
 		
 		if(txtNuevoPassword.equals(txtNuevoPasswordConfirmar)==false)
 		{
-			mostrarMensaje("Las contraseñas no coinciden");
+			mostrarMensaje(Mensajes.INVALID_PASSWORD);
 		}
 		else
 		{
@@ -402,6 +403,31 @@ public class ConfiguracionVista
 		
 		setUsuarioSeleccionado(null);
 	}
-	
-	
+
+	public void eliminarUsuario(){
+		try {
+			usuarioLogica.borrarUsuario(usuarioAEliminar);
+			mostrarMensaje(Mensajes.USER_REMOVED);
+
+			usuarios = usuarioLogica.consultarTodos();
+
+			somEstadoUsuarios.setValue("-1");
+			Ajax.update("formulario:somEstadoUsuarios");
+            somEstadoUsuariosOnChange();
+            Ajax.update("formulario:tabla");
+
+            setUsuarioAEliminar(null);
+		} catch (Exception e) {
+		    mostrarMensaje(Mensajes.ERROR_REMOVING_USER);
+			e.printStackTrace();
+		}
+	}
+
+	public String getModalText() {
+		return Mensajes.CONFIRM_REMOVAL_USER;
+	}
+
+	public void setUsuarioAEliminar(Usuario usuarioAEliminar) {
+		this.usuarioAEliminar = usuarioAEliminar;
+	}
 }
