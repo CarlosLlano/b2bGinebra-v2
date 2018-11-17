@@ -63,4 +63,8 @@ public class OfertaLogica
 		return ofertaDAO.consultarTodos();
 	}
 
+	public List<Oferta> consultarOfertasPorNegocio(Long idNegocio) throws Exception{
+		return ofertaDAO.consultarOfertasPorNegocio(idNegocio);
+	}
+
 }

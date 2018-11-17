@@ -60,4 +60,7 @@ public class CategoriaProdLogica
 		return categoriaProdDAO.consultarTodos();
 	}
 
+    public List<CategoriaProd> consultarCategoriaProdPorTipoNegocio(long idTipoNegocio) {
+		return categoriaProdDAO.consultarCategoriaProdPorTipoNegocio(idTipoNegocio);
+    }
 }

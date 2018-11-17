@@ -69,7 +69,7 @@ public class DirectorioVista
 			else
 			{
 				TipoNegocio tipoNegocio = tipoNegocioLogica.consultarTipoNegocio(id);
-				List<CategoriaProd> categoriasProd = tipoNegocio.getCategoriaProds();
+				List<CategoriaProd> categoriasProd = categoriaProdLogica.consultarCategoriaProdPorTipoNegocio(tipoNegocio.getIdTipoNegocio());
 				actualizarCategoriaProd(categoriasProd);
 			}
 		} 

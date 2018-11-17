@@ -39,9 +39,6 @@ public class Notificacion implements Serializable {
 	@Column(nullable=false, length=50)
 	private String nombre;
 
-	@Column(nullable=false, precision=5)
-	private BigDecimal visitas;
-
 	//bi-directional many-to-one association to CategoriaProd
 	@ManyToOne
 	@JoinColumn(name="categoria_prod_id_categoria", nullable=false)
@@ -106,14 +103,6 @@ public class Notificacion implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public BigDecimal getVisitas() {
-		return this.visitas;
-	}
-
-	public void setVisitas(BigDecimal visitas) {
-		this.visitas = visitas;
 	}
 
 	public CategoriaProd getCategoriaProd() {

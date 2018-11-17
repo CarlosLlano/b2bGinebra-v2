@@ -1,5 +1,6 @@
 package co.b2bginebra.modelo;
 
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -75,7 +76,7 @@ public class Negocio implements Serializable {
 	private List<Notificacion> notificacions;
 
 	//bi-directional many-to-one association to Oferta
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER,mappedBy="negocio")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="negocio")
 	private List<Oferta> ofertas;
 
 	//bi-directional many-to-one association to SolicitudReg

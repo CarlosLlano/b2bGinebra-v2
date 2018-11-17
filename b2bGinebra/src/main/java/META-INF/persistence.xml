@@ -8,8 +8,10 @@
 		<jta-data-source>java:/PostgresDS</jta-data-source>
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
-			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
+            <!-- FOR TESTING -->
+            <!-- <property name="hibernate.show_sql" value="true"/> -->
+			<!-- <property name="hibernate.format_sql" value="true"/> -->
 		</properties>
 
 	</persistence-unit>

@@ -27,7 +27,7 @@ public class TipoNegocio implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-one association to CategoriaProd
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="tipoNegocio")
+	@OneToMany(mappedBy="tipoNegocio")
 	private List<CategoriaProd> categoriaProds;
 
 	//bi-directional many-to-one association to Negocio
