@@ -14,7 +14,7 @@ function initMap(){
     axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
       params:{
         address:location,
-        key:'AIzaSyDqu6hQlG0wZrSQ8zL2zUB1HgrekYrggOw'
+        key:'AIzaSyCSYfvxFMhQS_zoysw6ywR1udl7-vjaUWc'
       }
     })
     .then(function(response){
@@ -40,7 +40,8 @@ function initMap(){
            
       // información que se muestra cuando se presiona sobre el negocio  
       var infoWindow = new google.maps.InfoWindow({
-      content:'<h1>Merca Ginebra</h1>'
+      content:location
+    	  
       });
 
 
