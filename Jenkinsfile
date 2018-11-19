@@ -9,8 +9,8 @@ node{
     sh 'mvn clean package' 
 
     //archive .war for build history
-    stage 'archive' 
-    archiveArtifacts 'target/*.war' 
+    //stage 'archive' 
+    //archiveArtifacts 'target/*.war' 
 
     //deployment in docker
     stage 'deployment'
