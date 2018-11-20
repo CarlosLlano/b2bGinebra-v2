@@ -423,6 +423,22 @@ public class ConfiguracionVista
 		}
 	}
 
+	public String getImagenInicio(){
+		String rutaImagen =  parametroSistemaLogica.consultarParametroPorNombre("IMAGEN_INICIO").getValor();
+		if(rutaImagen.isEmpty() || rutaImagen == null){
+			return "background-image:url(assets/img/Ginebra3.jpg)";
+		}
+		return "background-image:url(" + rutaImagen + ")";
+	}
+
+	public String getImagenFooter(){
+		String rutaImagen = parametroSistemaLogica.consultarParametroPorNombre("IMAGEN_FOOTER").getValor();
+		if(rutaImagen.isEmpty() || rutaImagen == null){
+			return "background-color: #003951";
+		}
+		return "background-image:url(" + rutaImagen + ")";
+	}
+
 	public String getModalText() {
 		return Mensajes.CONFIRM_REMOVAL_USER;
 	}
