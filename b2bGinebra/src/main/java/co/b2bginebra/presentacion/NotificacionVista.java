@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
@@ -66,8 +67,7 @@ public class NotificacionVista
 	public void init()
 	{
 		Usuario usuario = (Usuario) JsfSecurityTools.getfromSession("usuario");
-		negocio = usuario.getNegocios().get(0);
-
+		negocio = usuario.getNegocios().size() != 0 ? usuario.getNegocios().get(0) : null;
 	}
 	
 	public void crear()
@@ -149,7 +149,7 @@ public class NotificacionVista
 					
 					
 					Ajax.update("formulario:panelImagen");
-					
+
 				}
 				else
 				{
@@ -168,6 +168,7 @@ public class NotificacionVista
 	}
 	public boolean validateFile(Part file) 
 	{
+
 		if(file!= null)
 		{
 			if (file.getContentType().equals("image/jpeg")==false) 
@@ -181,7 +182,8 @@ public class NotificacionVista
 	
 	public void mostrarMensaje(String mensaje)
 	{
-		FacesMessages.info(mensaje);		
+		FacesMessages.info(mensaje);
+        RequestContext.getCurrentInstance().scrollTo("formulario:top");
 	}
 
 	public String getImagen() 
@@ -233,11 +235,12 @@ public class NotificacionVista
 	}
 
 	public List<SelectItem> getCategoriasProd() {
-		try 
+		try
 		{
 			if(categoriasProd==null)
 			{
-				List<CategoriaProd> pcategoriasProd = categoriaProdLogica.consultarTodos();
+
+                List<CategoriaProd> pcategoriasProd = categoriaProdLogica.consultarTodos();
 				categoriasProd = new ArrayList<SelectItem>();
 				for (CategoriaProd categoriaProd : pcategoriasProd) 
 				{
@@ -245,7 +248,8 @@ public class NotificacionVista
 					categoriasProd.add(item);
 				}	
 			}
-		} 
+
+        }
 		catch (Exception e) 
 		{
 			//handle error
@@ -272,7 +276,8 @@ public class NotificacionVista
 				}
 				
 			}
-		} 
+
+        }
 		catch (Exception e) {
 			
 		}

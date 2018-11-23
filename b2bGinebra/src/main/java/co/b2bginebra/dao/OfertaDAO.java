@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import co.b2bginebra.dao.api.JpaDaoImpl;
 import co.b2bginebra.modelo.Oferta;
 
+import java.util.List;
+
 
 @Stateless
 public class OfertaDAO extends JpaDaoImpl<Oferta, Long>{
@@ -21,4 +23,9 @@ public class OfertaDAO extends JpaDaoImpl<Oferta, Long>{
 	{
 		super(Oferta.class);
 	}
+
+    public List<Oferta> consultarOfertasPorNegocio(Long idNegocio) {
+        String jpql = "SELECT o FROM Oferta o WHERE o.negocio.idNegocio=:idNegocio";
+        return entityManager.createQuery(jpql, Oferta.class).setParameter("idNegocio", idNegocio).getResultList();
+    }
 }

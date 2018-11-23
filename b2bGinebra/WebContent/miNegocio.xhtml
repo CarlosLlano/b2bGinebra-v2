@@ -59,6 +59,7 @@
                         <div class="form-group has-feedback">
                             <b:selectOneMenu id="somTipoNegocio"  binding="#{miNegocioVista.somTipoNegocio}" label="Tipo Negocio" label-style="font-size: 10pt;">
 								<f:selectItems value="#{miNegocioVista.tipoNegocios}" />
+								<f:ajax listener="#{miNegocioVista.somTipoNegocioOnChange}" render="formulario:somCategoriaProd" />
 							</b:selectOneMenu>			                
                         </div>
                         <!-- TIPO NEGOCIO -->
@@ -128,7 +129,7 @@
 								</div>
 								<div id="map"></div>
 								<script src="assets/javascript/maps.js" />
-								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVRz4AuNEjRVuUzLUMBW7Lx2HFtwsR4SQ&amp;libraries=places&amp;callback=initMap"
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSYfvxFMhQS_zoysw6ywR1udl7-vjaUWc&amp;libraries=places&amp;callback=initMap"
 								 async="async" defer="defer"></script>
 							   <!-- MAPA -->
                             </div>

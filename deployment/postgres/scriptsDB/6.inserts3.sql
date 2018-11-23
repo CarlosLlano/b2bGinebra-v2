@@ -7,7 +7,9 @@ INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_P
 'Su solicitud de registro en la plataforma "Comercio Ginebrino" ha sido aceptada.
 A partir de este momento puede acceder con su cedula y contraseña.
 Por ultimo desde la Alcaldia de Ginebra le damos las gracias por su compromiso con el desarrollo del municipio. ');
-
+INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'IMAGEN_INICIO','https://drive.google.com/uc?id=1LY0O5KPLT94S1ecOGCggb_MyYu65ZbqU');
+INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'IMAGEN_FOOTER','');
+INSERT INTO PARAMETRO_SISTEMA (ID_PARAMETRO,NOMBRE,VALOR) VALUES (nextval('SEQ_PARAMETRO_SISTEMA'),'POLITICA_DE_PRIVACIDAD','https://drive.google.com/uc?id=1hXsGV1Hmmhgx_nwTCKVEw0tgZsAy_uRo');
 
 --tipo estados
 INSERT INTO TIPO_ESTADO (ID_TIPO_ESTADO,NOMBRE,DESCRIPCION) VALUES (nextval('SEQ_TIPO_ESTADO'),'General','Estados que aplican a todas las entidades');

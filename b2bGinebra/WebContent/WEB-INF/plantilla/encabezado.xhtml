@@ -19,13 +19,18 @@
 					<nav class="navbar navbar-default navigation-clean-button" style="background-color:#003951;color:#eeeeee;">
 						<div class="container">
 							<div class="navbar-header">
-								<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+								<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1" type="button">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
 							</div>
 							<div class="collapse navbar-collapse" id="navcol-1">
 								<ul class="nav navbar-nav"></ul>
 								<p class="navbar-text navbar-right actions" style="color:#ffffff;">
 									<h:panelGroup rendered="#{jsfSecurityTools.usuario eq null}" >
-										<a class="navbar-link login" href="inicio.xhtml" style="color:#f2f5f8;font-size:15pt;">Iniciar sesión</a> 
+										<a class="navbar-link login" href="inicio.xhtml" style="color:#f2f5f8;font-size:15pt;">Iniciar sesión</a>
 										<a class="btn btn-default action-button" role="button" href="registro.xhtml" style="font-size:15pt;color:#ffffff;background-color:#00708c;">Registrarse </a>
 									</h:panelGroup>
 									
@@ -50,6 +55,11 @@
 													
 												<li role="presentation" style="text-align: center;">
 													<b:navCommandLink value="Solicitudes" style="font-size:12pt;" href="alcaldiaSolicitudes.xhtml"/>
+												</li>
+												<b:navLink></b:navLink>
+
+												<li role="presentation" style="text-align: center;">
+													<b:navCommandLink value="Notificaciones" style="font-size:12pt;" href="notificaciones.xhtml"/>
 												</li>
 												<b:navLink></b:navLink>
 												
@@ -86,7 +96,7 @@
 												<b:navLink></b:navLink>
 												
 												<li role="presentation" style="text-align: center;">
-													<b:navCommandLink value="Notificaciones" style="font-size:12pt;" href="notificaciones.xhtml"/>
+													<b:navCommandLink value="Notificaciones" style="font-size:12pt;" href="misNotificaciones.xhtml"/>
 												</li>
 												<b:navLink></b:navLink>
 																	
@@ -109,7 +119,6 @@
 						</div>
 					</nav>
 				</div>
-				<div></div>
 				<!-- HEADER -->
 
 

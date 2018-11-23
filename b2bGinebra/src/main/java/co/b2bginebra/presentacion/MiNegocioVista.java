@@ -19,16 +19,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
+import co.b2bginebra.logica.*;
 import co.b2bginebra.utils.Mensajes;
 import org.omnifaces.util.Ajax;
 import org.primefaces.context.RequestContext;
 
-import co.b2bginebra.logica.CategoriaProdLogica;
-import co.b2bginebra.logica.HorarioAtencionLogica;
-import co.b2bginebra.logica.ImagenLogica;
-import co.b2bginebra.logica.NegocioLogica;
-import co.b2bginebra.logica.TipoNegocioLogica;
-import co.b2bginebra.logica.UsuarioLogica;
 import co.b2bginebra.modelo.CategoriaProd;
 import co.b2bginebra.modelo.HorarioAtencion;
 import co.b2bginebra.modelo.Imagen;
@@ -100,6 +95,8 @@ public class MiNegocioVista
 	private CategoriaProdLogica categoriaProdLogica;
 	@EJB
 	private UsuarioLogica usuarioLogica;
+	@EJB
+	private OfertaLogica ofertaLogica;
 	
 	@PostConstruct
     public void postConstruct() 
@@ -114,7 +111,7 @@ public class MiNegocioVista
 			
 			horarios = horariosLogica.consultarHorariosPorNegocio(negocioSeleccionado.getIdNegocio());
 			imagenes = imagenLogica.consultarImagenesPorNegocio(negocioSeleccionado.getIdNegocio());
-			ofertas = negocioSeleccionado.getOfertas();
+			ofertas = ofertaLogica.consultarOfertasPorNegocio(negocioSeleccionado.getIdNegocio());
 			
 			
 		} 
@@ -565,13 +562,40 @@ public class MiNegocioVista
 		this.somCategoriaProd = somCategoriaProd;
 	}
 
+    public void somTipoNegocioOnChange()
+    {
+        try
+        {
+            long id = Long.parseLong(somTipoNegocio.getValue().toString());
+            TipoNegocio tipoNegocio = tipoNegocioLogica.consultarTipoNegocio(id);
+            List<CategoriaProd> categoriasProd = categoriaProdLogica.consultarCategoriaProdPorTipoNegocio(tipoNegocio.getIdTipoNegocio());
+            actualizarCategoriaProd(categoriasProd);
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    public void actualizarCategoriaProd(List<CategoriaProd> pcategorias)
+    {
+        categoriasProd = new ArrayList<SelectItem>();
+        for (CategoriaProd categoriaProd : pcategorias)
+        {
+            SelectItem item = new SelectItem(categoriaProd.getIdCategoria(), categoriaProd.getNombre());
+            categoriasProd.add(item);
+        }
+
+    }
+
 	public List<SelectItem> getCategoriasProd() 
 	{
 		try 
 		{
 			if(categoriasProd==null)
 			{
-				List<CategoriaProd> pcategoriasProd = negocioSeleccionado.getTipoNegocio().getCategoriaProds();
+				List<CategoriaProd> pcategoriasProd = categoriaProdLogica.consultarCategoriaProdPorTipoNegocio(negocioSeleccionado.getTipoNegocio().getIdTipoNegocio());
 				categoriasProd = new ArrayList<SelectItem>();
 				for (CategoriaProd categoriaProd : pcategoriasProd) 
 				{

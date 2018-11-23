@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import co.b2bginebra.logica.HorarioAtencionLogica;
 import co.b2bginebra.logica.ImagenLogica;
 import co.b2bginebra.logica.NegocioLogica;
+import co.b2bginebra.logica.OfertaLogica;
 import co.b2bginebra.modelo.HorarioAtencion;
 import co.b2bginebra.modelo.Imagen;
 import co.b2bginebra.modelo.Negocio;
@@ -41,6 +42,8 @@ public class NegocioVista
 	private HorarioAtencionLogica horariosLogica;
 	@EJB
 	private ImagenLogica imagenLogica;
+	@EJB
+    private OfertaLogica ofertaLogica;
 	
 	@PostConstruct
     public void postConstruct() 
@@ -56,7 +59,7 @@ public class NegocioVista
 			}else{
 				horarios = horariosLogica.consultarHorariosPorNegocio(negocioSeleccionado.getIdNegocio());
 				imagenes = imagenLogica.consultarImagenesPorNegocio(negocioSeleccionado.getIdNegocio());
-				ofertas = negocioSeleccionado.getOfertas();
+				ofertas = ofertaLogica.consultarOfertasPorNegocio(negocioSeleccionado.getIdNegocio());
 			}
 			
 		} 
