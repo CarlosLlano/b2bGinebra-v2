@@ -26,6 +26,12 @@ public class NegocioRegistrado implements Serializable {
 	@Column(name="razon_social", nullable=false, length=50)
 	private String razonSocial;
 
+    @Column(name="direccion", nullable=false, length=50)
+    private String direccion;
+
+    @Column(name="nombre_repr", nullable=false, length=50)
+    private String nombreRepr;
+
 	public NegocioRegistrado() {
 	}
 
@@ -53,4 +59,19 @@ public class NegocioRegistrado implements Serializable {
 		this.razonSocial = razonSocial;
 	}
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getNombreRepr() {
+        return nombreRepr;
+    }
+
+    public void setNombreRepr(String nombreRepr) {
+        this.nombreRepr = nombreRepr;
+    }
 }

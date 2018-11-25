@@ -8,6 +8,9 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringJoiner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -18,7 +21,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 
+import co.b2bginebra.modelo.NegocioRegistrado;
 import co.b2bginebra.utils.Mensajes;
+import org.omnifaces.util.Ajax;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 
@@ -84,7 +89,8 @@ public class RegistroVista
 	@EJB
 	private GestionCorreosLogica gestionCorreosLogica;
 
-	
+	private List<NegocioRegistrado> negocioRegistrados;
+
 	@PostConstruct
 	public void init()
 	{
@@ -104,6 +110,8 @@ public class RegistroVista
 		txtNegSitioWeb= "";
 		txtNegCorreo= "";
 		txtNegDescripcion= "";
+
+		negocioRegistrados = negocioRegistradoLogica.consultarTodos();
 	}
 	
 	public void registrar()
@@ -180,9 +188,7 @@ public class RegistroVista
 		}
 		catch(Exception e)
 		{
-			
 			mostrarMensaje(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -299,9 +305,37 @@ public class RegistroVista
 	
 	public void mostrarMensaje(String mensaje)
 	{
-		FacesMessages.info(mensaje);		
+		FacesMessages.info(mensaje);
         RequestContext.getCurrentInstance().scrollTo("formulario:top");
-	}
+    }
+
+	public void onChangeTxtUsuIdentificacion(){
+
+	    List<NegocioRegistrado> negocioRegistrado = negocioRegistrados.stream()
+                .filter((negocio) -> negocio.getDocRepr().equals(txtUsuIdentificacion))
+                .collect(Collectors.toList());
+	    if(!negocioRegistrado.isEmpty()){
+            txtNegRazonSocial = negocioRegistrado.get(0).getRazonSocial();
+            txtNegDireccion = negocioRegistrado.get(0).getDireccion();
+	        txtUsuNombre = negocioRegistrado.get(0).getNombreRepr();
+
+            Ajax.update("formulario:txtNegRazonSocial");
+            Ajax.update("formulario:direccion");
+            Ajax.update("formulario:txtUsuNombre");
+
+            mostrarMensaje("Su cedula se encuentra en nuestra base de datos. Su nombre, direccion y la direccion social de su negocio han sido rellenadas en el formulario");
+            Ajax.update("formulario:growl");
+
+        }
+        else{
+            txtNegRazonSocial = "";
+            txtNegDireccion = "";
+            txtUsuNombre = "";
+            Ajax.update("formulario:txtNegRazonSocial");
+            Ajax.update("formulario:txtNegDireccion");
+            Ajax.update("formulario:txtUsuNombre");
+        }
+    }
 	
 	
 
