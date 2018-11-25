@@ -28,9 +28,10 @@
 					<!-- Datos del usuario -->
 					<div class="col-sm-6">
 						
-						<b:panel title="Datos Personales" look="primary" collapsible="false" tooltip="Deben ser los datos del representante legal del negocio">
-							<b:inputText placeholder="Nombre" value="#{registroVista.txtUsuNombre}"  />
-							<b:inputText placeholder="Cedula" value="#{registroVista.txtUsuIdentificacion}" />
+						<b:panel id="panelDatosPersonales" title="Datos Personales" look="primary" collapsible="false" tooltip="Digite su cédula para saber si se encuentra en nuestra base de datos">
+							<b:inputText id="txtUsuNombre" placeholder="Nombre" value="#{registroVista.txtUsuNombre}"  />
+							<b:inputText placeholder="Cédula" value="#{registroVista.txtUsuIdentificacion}"
+										ajax="true" onkeyup="ajax:registroVista.onChangeTxtUsuIdentificacion();"/>
 							<b:inputText placeholder="Teléfono" value="#{registroVista.txtUsuTelefono}" />
 							<b:inputText placeholder="Dirección" value="#{registroVista.txtUsuDireccion}" maxlength="50"/>
 							<b:inputText placeholder="Correo" value="#{registroVista.txtUsuCorreo}" type="email" />
@@ -44,7 +45,7 @@
 					<div class="col-md-6">
 						<b:panel title="Datos del negocio" look="primary" collapsible="false">
 							
-							<b:inputText placeholder="Razón social" value="#{registroVista.txtNegRazonSocial}"  />
+							<b:inputText id="txtNegRazonSocial" placeholder="Razón social" value="#{registroVista.txtNegRazonSocial}"  />
 							<b:inputText placeholder="Teléfono" value="#{registroVista.txtNegTelefono}" />
 							<b:inputText placeholder="Sitio web (Opcional)" value="#{registroVista.txtNegSitioWeb}" />
 							<b:inputText placeholder="Correo" value="#{registroVista.txtNegCorreo}" type="email" />
@@ -69,7 +70,7 @@
 					<div class="col-lg-10 col-lg-offset-1 col-md-12">
 						<b:panel title="Dirección" look="primary" collapsible="false">
 							
-							<b:inputText placeholder="Escriba una direccion o ubique su negocio en el mapa" value="#{registroVista.txtNegDireccion}" id="direccion" />
+							<b:inputText placeholder="Escriba una direccion o ubique su negocio en el mapa" value="#{registroVista.txtNegDireccion}" id="direccion"/>
 						
 							<input id="pac-input" class="controls" type="text" placeholder="Ubicacion"  />
 
@@ -115,7 +116,7 @@
 		<div align="center">
 			<b:commandButton value="Registrar" look="primary" style="width: 20%;" 
 			                 ajax="true" onclick="onchangeDireccion();ajax:registroVista.registrar();" 
-			                 update="growl" >
+			                 update="growl">
 				<!--  <f:ajax execute="@form" render="@none"/> -->
 			</b:commandButton>
 		

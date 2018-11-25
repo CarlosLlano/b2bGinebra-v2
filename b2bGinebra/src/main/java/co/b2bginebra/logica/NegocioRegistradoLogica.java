@@ -61,7 +61,7 @@ public class NegocioRegistradoLogica
 		return negocioRegistradoDAO.consultarPorId(id);
 	}
 	
-	public List<NegocioRegistrado> consultarTodos() throws Exception 
+	public List<NegocioRegistrado> consultarTodos()
 	{
 		return negocioRegistradoDAO.consultarTodos();
 	}

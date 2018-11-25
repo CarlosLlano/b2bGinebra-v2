@@ -39,7 +39,8 @@
 		    </b:container>
 		     
 			<div class="container">   
-			        <b:dataTable id="tabla" value="#{configuracionVista.usuarios}" var="usu" class="editableTable">
+			        <b:dataTable id="tabla" value="#{configuracionVista.usuarios}" var="usu" class="editableTable"
+						columnVisibility="true" excel="true" csv="true" pdf="true">
 						<b:dataTableColumn label="Estado">
 							<b:selectOneMenu binding="#{configuracionVista.somEstadoSeleccionado}" rendered="#{configuracionVista.usuarioSeleccionado eq usu}">
 							<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
