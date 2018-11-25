@@ -37,51 +37,62 @@
 					</h:panelGroup>
 				</b:row>
 		    </b:container>
-		     
-			<div class="container">   
+
+            <b:container fluid="true">
+                <h:panelGroup id="opciones">
+                    <b:commandButton value="Editar" look="primary" style="margin-right: 10px; margin-top: 10px;"
+                                     ajax="true" onclick="ajax:configuracionVista.mostrarModalEditarEstadoUsuario()"
+                                     update="@(.editableTable)"/>
+                    <b:commandButton value="Eliminar" look="danger" style="margin-right: 10px; margin-top: 10px;"
+                                     ajax="true" onclick="ajax:configuracionVista.mostrarModalEliminarUsuario()"
+                                     update="@(.editableTable)"/>
+                </h:panelGroup>
+            </b:container>
+            <br />
+            <br />
+            <br />
+            <div class="container">
 			        <b:dataTable id="tabla" value="#{configuracionVista.usuarios}" var="usu" class="editableTable"
-						columnVisibility="true" excel="true" csv="true" pdf="true">
-						<b:dataTableColumn label="Estado">
-							<b:selectOneMenu binding="#{configuracionVista.somEstadoSeleccionado}" rendered="#{configuracionVista.usuarioSeleccionado eq usu}">
-							<f:selectItems value="#{configuracionVista.estadosUsuarios}" />
-						</b:selectOneMenu>
-						<h:outputText value="#{usu.estado.nombre}" rendered="#{configuracionVista.usuarioSeleccionado ne usu}"/>
-						</b:dataTableColumn>
+						columnVisibility="true" excel="true" csv="true" pdf="true"
+						selectionMode="single"
+                        onselect="ajax:configuracionVista.setUsuarioSeleccionado(usu);"
+                        ondeselect="ajax:configuracionVista.setUsuarioSeleccionado(null);">
+						<b:dataTableColumn value="#{usu.estado.nombre}" label="Estado"/>
 						<b:dataTableColumn value="#{usu.nombre}" label="Nombre" />
 						<b:dataTableColumn value="#{usu.identificacion}" label="Identificación"/>
 						<b:dataTableColumn value="#{usu.correo}" label="Correo"/>
 						<b:dataTableColumn value="#{usu.telefono}" label="Teléfono"/>
 						<b:dataTableColumn value="#{usu.direccion}" label="Dirección"/>
 						<b:dataTableColumn value="#{usu.negocios[0].razonSocial}" label="Negocio"/>
-						<b:dataTableColumn label="Opciones">
-						
-							<b:commandButton value="Editar"
-											 onclick="ajax:configuracionVista.setUsuarioSeleccionado(usu);"
-											 look="primary"
-											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
-										     update="@(.editableTable)"
-											 style="margin-right: 10px;"/>
-							<b:commandButton value="Eliminar"
-											 onclick="ajax:configuracionVista.setUsuarioAEliminar(usu);"
-											 onsuccess="$('.modalPseudoClass').modal()"
-											 look="danger"
-											 rendered="#{configuracionVista.usuarioSeleccionado ne usu}"
-											 update="@(.editableTable)"/>
-							<b:commandButton value="Guardar"
-											 onclick="ajax:configuracionVista.guardarEstadoUsuario();"
-											 look="success"
-											 rendered="#{configuracionVista.usuarioSeleccionado eq usu}"
-											 update="@(.editableTable)"/>
-						</b:dataTableColumn>
 					</b:dataTable>
 			</div>
-			<b:modal id="modal" title="Mensaje" styleClass="modalPseudoClass" losable="false" close-on-escape="false" backdrop="false" size="modal-sm">
+
+			<b:modal id="modal" title="Eliminar" styleClass="modalPseudoClass" closable="false" close-on-escape="false" backdrop="false" size="modal-sm">
 				<h5>#{configuracionVista.modalText}</h5>
 				<f:facet name="footer">
-					<b:commandButton value="Continuar" look="primary" onclick="ajax:configuracionVista.eliminarUsuario();" onsuccess="$('.modalPseudoClass').modal('hide');" />
-					<b:button value="Cancelar" look="primary" dismiss="modal" />
+					<b:commandButton value="Continuar" look="primary"
+									 onclick="ajax:configuracionVista.eliminarUsuario();"
+									 onsuccess="$('.modalPseudoClass').modal('hide');" />
+					<b:commandButton value="Cancelar" look="primary"
+                                     onclick="ajax:configuracionVista.setUsuarioSeleccionado(null)"
+                                     onsuccess="$('.modalPseudoClass').modal('hide');"/>
 				</f:facet>
 			</b:modal>
+
+            <b:modal id="modal2" title="Edición" styleClass="modal2PseudoClass" closable="false" close-on-escape="false" backdrop="false" size="modal-sm">
+                <h5>Estado</h5>
+                <b:selectOneMenu id="estadosOpciones" binding="#{configuracionVista.somEstadoSeleccionado}">
+                    <f:selectItems value="#{configuracionVista.estadosUsuarios}" />
+                </b:selectOneMenu>
+                <f:facet name="footer">
+                    <b:commandButton value="Continuar" look="primary"
+                                     onclick="ajax:configuracionVista.guardarEstadoUsuario();"
+                                     onsuccess="$('.modal2PseudoClass').modal('hide');"/>
+                    <b:commandButton value="Cancelar" look="primary"
+                                     onclick="ajax:configuracionVista.setUsuarioSeleccionado(null)"
+                                     onsuccess="$('.modal2PseudoClass').modal('hide');"/>
+                </f:facet>
+            </b:modal>
         </div>
     </div>
     

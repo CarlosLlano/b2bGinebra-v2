@@ -26,6 +26,7 @@ import co.b2bginebra.seguridad.CipherTools;
 import net.bootsfaces.component.inputText.InputText;
 import net.bootsfaces.component.selectOneMenu.SelectOneMenu;
 import net.bootsfaces.utils.FacesMessages;
+import org.primefaces.context.RequestContext;
 
 /**
  * Representa la vista destinada a la gestion de parametros de configuracion de la aplicacion
@@ -52,7 +53,6 @@ public class ConfiguracionVista
 	private List<Usuario> usuarios;
 	private SelectOneMenu somEstadoSeleccionado;
 	private Usuario usuarioSeleccionado;
-	private Usuario usuarioAEliminar;
 
 	@EJB
 	private ParametroSistemaLogica parametroSistemaLogica;
@@ -383,18 +383,46 @@ public class ConfiguracionVista
 	public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
 		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
-	
+
+	public void mostrarModalEditarEstadoUsuario(){
+		if(usuarioSeleccionado == null){
+			mostrarMensaje("Debe seleccionar un usuario");
+		}
+		else{
+			RequestContext context = RequestContext.getCurrentInstance();
+			String codigo = "$('.modal2PseudoClass').modal()";
+			context.execute(codigo);
+		}
+	}
+	public void mostrarModalEliminarUsuario(){
+		if(usuarioSeleccionado == null){
+			mostrarMensaje("Debe seleccionar un usuario");
+		}
+		else{
+			RequestContext context = RequestContext.getCurrentInstance();
+			String codigo = "$('.modalPseudoClass').modal()";
+			context.execute(codigo);
+		}
+	}
 	public void guardarEstadoUsuario()
 	{
 		try 
 		{
-			Estado estado = estadoLogica.consultarEstado(Long.parseLong(somEstadoSeleccionado.getValue().toString()));		
-			usuarioSeleccionado.setEstado(estado);	
-			usuarioLogica.modificarUsuario(usuarioSeleccionado);
-			
-			usuarios = usuarioLogica.consultarTodos();
-			somEstadoUsuarios.setValue("-1");
-			Ajax.update("formulario:somEstadoUsuarios");
+			if(usuarioSeleccionado == null){
+				mostrarMensaje("Debe seleccionar un usuario");
+			}
+			else{
+				Estado estado = estadoLogica.consultarEstado(Long.parseLong(somEstadoSeleccionado.getValue().toString()));
+				usuarioSeleccionado.setEstado(estado);
+				usuarioLogica.modificarUsuario(usuarioSeleccionado);
+
+				usuarios = usuarioLogica.consultarTodos();
+				somEstadoUsuarios.setValue("-1");
+				Ajax.update("formulario:somEstadoUsuarios");
+				somEstadoUsuariosOnChange();
+				Ajax.update("formulario:tabla");
+				setUsuarioSeleccionado(null);
+			}
 		} 
 		catch (Exception e)
 		{
@@ -406,21 +434,26 @@ public class ConfiguracionVista
 
 	public void eliminarUsuario(){
 		try {
-			usuarioLogica.borrarUsuario(usuarioAEliminar);
-			mostrarMensaje(Mensajes.USER_REMOVED);
+			if(usuarioSeleccionado == null){
+				mostrarMensaje("Debe seleccionar un usuario");
+			}
+			else{
+				usuarioLogica.borrarUsuario(usuarioSeleccionado);
+				mostrarMensaje(Mensajes.USER_REMOVED);
 
-			usuarios = usuarioLogica.consultarTodos();
-
-			somEstadoUsuarios.setValue("-1");
-			Ajax.update("formulario:somEstadoUsuarios");
-            somEstadoUsuariosOnChange();
-            Ajax.update("formulario:tabla");
-
-            setUsuarioAEliminar(null);
+				usuarios = usuarioLogica.consultarTodos();
+				somEstadoUsuarios.setValue("-1");
+				Ajax.update("formulario:somEstadoUsuarios");
+				somEstadoUsuariosOnChange();
+				Ajax.update("formulario:tabla");
+				setUsuarioSeleccionado(null);
+			}
 		} catch (Exception e) {
 		    mostrarMensaje(Mensajes.ERROR_REMOVING_USER);
 			e.printStackTrace();
 		}
+		setUsuarioSeleccionado(null);
+
 	}
 
 	public String getImagenInicio(){
@@ -441,9 +474,5 @@ public class ConfiguracionVista
 
 	public String getModalText() {
 		return Mensajes.CONFIRM_REMOVAL_USER;
-	}
-
-	public void setUsuarioAEliminar(Usuario usuarioAEliminar) {
-		this.usuarioAEliminar = usuarioAEliminar;
 	}
 }
