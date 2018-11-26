@@ -39,7 +39,9 @@
     
               
 			<div class="container">   
-			        <b:dataTable id="tabla" value="#{solicitudesVista.solicitudes}" var="solicitud" class="editableTable">
+			        <b:dataTable id="tabla" value="#{solicitudesVista.solicitudes}" var="solicitud"
+								 class="editableTable"
+								 lang="es">
 			        		<b:dataTableColumn label="Ver Detalle">
 							 <b:commandButton value="Ver" look="primary" style="margin: auto;"
 							 onclick="ajax:solicitudesVista.seleccionarSolicitud(solicitud);" 

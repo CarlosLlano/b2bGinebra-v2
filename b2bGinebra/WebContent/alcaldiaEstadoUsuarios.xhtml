@@ -56,7 +56,8 @@
 						columnVisibility="true" excel="true" csv="true" pdf="true"
 						selectionMode="single"
                         onselect="ajax:configuracionVista.setUsuarioSeleccionado(usu);"
-                        ondeselect="ajax:configuracionVista.setUsuarioSeleccionado(null);">
+                        ondeselect="ajax:configuracionVista.setUsuarioSeleccionado(null);"
+                        lang="es">
 						<b:dataTableColumn value="#{usu.estado.nombre}" label="Estado"/>
 						<b:dataTableColumn value="#{usu.nombre}" label="Nombre" />
 						<b:dataTableColumn value="#{usu.identificacion}" label="Identificación"/>

@@ -107,7 +107,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="table-responsive">
-                        <b:dataTable value="#{negocioVista.horarios}" var="horario" pageLength="50" info="false" searching="false" paginated="false">
+                        <b:dataTable value="#{negocioVista.horarios}" var="horario" pageLength="50" info="false"
+                                     searching="false" paginated="false"
+                                     lang="es">
 							<b:dataTableColumn value="#{horario.dia}" label="Dia"/>
 							<b:dataTableColumn value="#{horario.fechaInicio}" label="Desde"/>
 							<b:dataTableColumn value="#{horario.fechaFin}" label="Hasta"/>
@@ -144,7 +146,9 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <b:dataTable value="#{negocioVista.ofertas}" var="oferta" pageLength="100" info="false" searching="false" paginated="false">
+                        <b:dataTable value="#{negocioVista.ofertas}" var="oferta" pageLength="100"
+                                     info="false" searching="false" paginated="false"
+                                     lang="es">
 							<b:dataTableColumn value="#{oferta.categoriaProd.nombre}" label="Categoria de producto"/>
 							<b:dataTableColumn value="#{oferta.descripcion}" label="Descripcion"/>
 						</b:dataTable>

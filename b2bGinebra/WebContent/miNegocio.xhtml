@@ -174,7 +174,8 @@
                         <b:dataTable value="#{miNegocioVista.horarios}" var="horario" 
                         				pageLength="50" info="false" 
                         				searching="false" paginated="false"
-                        				class="tablaHorarios">
+                        				class="tablaHorarios"
+									    lang="es">
 							<b:dataTableColumn label="Dia">
 								<h:outputLabel value="#{horario.dia}" rendered="#{miNegocioVista.horarioSeleccionado ne horario}"/>
 								<b:inputText value="#{horario.dia}" rendered="#{miNegocioVista.horarioSeleccionado eq horario}"/>
@@ -277,7 +278,8 @@
                     		<h:panelGroup id="catalogo">
 	                        <b:dataTable value="#{miNegocioVista.ofertas}" var="oferta" 
 	                        				pageLength="100" info="false" searching="false" paginated="false"
-	                        				class="tablaOferta">
+	                        				class="tablaOferta"
+										    lang="es">
 								<b:dataTableColumn value="#{oferta.categoriaProd.nombre}" label="Categoria de producto"/>
 								<b:dataTableColumn value="#{oferta.descripcion}"  label="Descripcion"/>
 								<b:dataTableColumn label="Opciones">
