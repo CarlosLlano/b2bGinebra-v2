@@ -39,15 +39,14 @@
 							<div>
 								<b:dataTable value="#{configuracionVista.parametros}" var="parametro"
                                              style="font-size: 12px;" class="editableCarTable"
-                                             lang="es">
+                                             lang="es"
+                                             selectionMode="single"
+                                             onselect="ajax:configuracionVista.seleccionarParametro(parametro)"
+                                             ondeselect="ajax:configuracionVista.seleccionarParametro(null)"
+                                             update="@(.panel)">
 									<b:dataTableColumn value="#{parametro.nombre}" label="Nombre" />
 									<b:dataTableColumn value="#{parametro.valor}" label="Valor" />
 
-									<b:dataTableColumn label="Opciones">
-										<b:commandButton value="Seleccionar" look="primary" onclick="ajax:configuracionVista.seleccionarParametro(parametro)" update="@(.panel)">
-										</b:commandButton>
-
-									</b:dataTableColumn>
 								</b:dataTable>
 
 							</div>
@@ -57,7 +56,6 @@
 
 
 
-					<script src="assets/js/jquery.min.js"></script>
 					<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 					<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
 					<script src="assets/js/Profile-Edit.js"></script>
