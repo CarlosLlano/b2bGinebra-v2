@@ -68,6 +68,7 @@
                                 <h:panelGroup id="notificaciones">
                                     <b:dataTable value="#{notificacionVista.notificaciones}" var="notificacion" style="font-size: 12px;"
                                                  class="editableCarTable"
+                                                 fixedHeader="true" scroll-size="400px" responsive="true"
                                                  lang="es">
                                         <b:dataTableColumn value="#{notificacion.nombre}" label="Nombre" />
                                         <b:dataTableColumn value="#{notificacion.tipoNot.nombre}" label="Tipo" />

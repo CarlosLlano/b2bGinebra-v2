@@ -26,6 +26,7 @@
                             <div class="container">
                                 <b:dataTable id="tabla" value="#{notificacionVista.todasNotificaciones}"
                                              var="notificacion"
+                                             fixedHeader="true" scroll-size="400px" responsive="true"
                                              lang="es">
                                     <b:dataTableColumn value="#{notificacion.nombre}" label="Nombre"/>
                                     <b:dataTableColumn value="#{notificacion.tipoNot.nombre}" label="Tipo"/>
