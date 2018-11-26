@@ -7,8 +7,10 @@
 		<ui:define name="body">
 			<f:view>
 				<h:form>
+                    <p:growl id="top"/>
+                    <b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
 
-					<div>
+                    <div>
 						<div class="container">
 
 							<div class="row">
@@ -24,7 +26,7 @@
 
 								<b:panel title="Parámetro Seleccionado" look="primary" collapsible="false" id="panel" class="panel">
 									<b:inputText value="#{configuracionVista.nombre}" label="Nombre" readonly="true" />
-									<b:inputTextarea value="#{configuracionVista.valor}" label="Valor" required="#{configuracionVista.parametroSeleccionado ne null}" maxlength="500"
+									<b:inputTextarea value="#{configuracionVista.valor}" label="Valor" maxlength="500"
 									/>
 									<b:commandButton value="Guardar cambios" look="primary" style="margin-left: 10pt;" onclick="ajax:configuracionVista.modificarParametro();"
 									 rendered="#{configuracionVista.parametroSeleccionado ne null}" update="@(.editableCarTable) @(.panel)">

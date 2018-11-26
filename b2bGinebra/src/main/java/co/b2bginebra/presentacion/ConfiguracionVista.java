@@ -115,7 +115,7 @@ public class ConfiguracionVista
 		} 
 		catch (Exception e) 
 		{
-			
+            mostrarMensaje(e.getMessage());
 		}
 		parametroSeleccionado = null;
 		nombre = "";
@@ -222,10 +222,14 @@ public class ConfiguracionVista
 	public void seleccionarParametro(ParametroSistema parametroSistema)
 	{
 		parametroSeleccionado = parametroSistema;
-		
-		nombre = parametroSeleccionado.getNombre();
-		valor = parametroSeleccionado.getValor();
-		
+		if(parametroSeleccionado != null){
+            nombre = parametroSeleccionado.getNombre();
+            valor = parametroSeleccionado.getValor();
+
+        } else{
+		    nombre = "";
+		    valor = "";
+        }
 	}
 	
 	
