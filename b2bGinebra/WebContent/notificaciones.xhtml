@@ -25,7 +25,8 @@
                             <!-- NOTIFICACIONES -->
                             <div class="container">
                                 <b:dataTable id="tabla" value="#{notificacionVista.todasNotificaciones}"
-                                             var="notificacion">
+                                             var="notificacion"
+                                             lang="es">
                                     <b:dataTableColumn value="#{notificacion.nombre}" label="Nombre"/>
                                     <b:dataTableColumn value="#{notificacion.tipoNot.nombre}" label="Tipo"/>
                                     <b:dataTableColumn label="Imagen">
