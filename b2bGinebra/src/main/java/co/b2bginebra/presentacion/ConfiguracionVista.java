@@ -390,7 +390,7 @@ public class ConfiguracionVista
 
 	public void mostrarModalEditarEstadoUsuario(){
 		if(usuarioSeleccionado == null){
-			mostrarMensaje("Debe seleccionar un usuario");
+			mostrarMensaje(Mensajes.USER_NOT_SELECTED);
 		}
 		else{
 			RequestContext context = RequestContext.getCurrentInstance();
@@ -400,7 +400,7 @@ public class ConfiguracionVista
 	}
 	public void mostrarModalEliminarUsuario(){
 		if(usuarioSeleccionado == null){
-			mostrarMensaje("Debe seleccionar un usuario");
+			mostrarMensaje(Mensajes.USER_NOT_SELECTED);
 		}
 		else{
 			RequestContext context = RequestContext.getCurrentInstance();
@@ -413,7 +413,7 @@ public class ConfiguracionVista
 		try 
 		{
 			if(usuarioSeleccionado == null){
-				mostrarMensaje("Debe seleccionar un usuario");
+				mostrarMensaje(Mensajes.USER_NOT_SELECTED);
 			}
 			else{
 				Estado estado = estadoLogica.consultarEstado(Long.parseLong(somEstadoSeleccionado.getValue().toString()));
@@ -439,7 +439,7 @@ public class ConfiguracionVista
 	public void eliminarUsuario(){
 		try {
 			if(usuarioSeleccionado == null){
-				mostrarMensaje("Debe seleccionar un usuario");
+				mostrarMensaje(Mensajes.USER_NOT_SELECTED);
 			}
 			else{
 				usuarioLogica.borrarUsuario(usuarioSeleccionado);

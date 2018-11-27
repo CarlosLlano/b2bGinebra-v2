@@ -323,7 +323,7 @@ public class RegistroVista
             Ajax.update("formulario:direccion");
             Ajax.update("formulario:txtUsuNombre");
 
-            mostrarMensaje("Su cedula se encuentra en nuestra base de datos. Su nombre, direccion y la direccion social de su negocio han sido rellenadas en el formulario");
+            mostrarMensaje(Mensajes.AUTOCOMPLETE_TEXT);
             Ajax.update("formulario:growl");
 
         }

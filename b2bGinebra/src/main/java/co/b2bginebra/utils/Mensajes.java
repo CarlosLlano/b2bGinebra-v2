@@ -13,6 +13,7 @@ public final class Mensajes {
     public static final String USER_REMOVED = "Usuario eliminado correctamente";
     public static final String ERROR_REMOVING_USER = "Ocurrio un error al borrar al usuario";
     public static final String CONFIRM_REMOVAL_USER = "Tenga en cuenta que se borrará toda la información del usuario y no podrá recuperar esa información. ¿Desea continuar?";
+    public static final String USER_NOT_SELECTED = "Debe seleccionar un usuario";
 
     //ContactoVista
     public static final String ERROR_MISSING_FIELDS = "Debe especificar todos los campos";
@@ -32,6 +33,7 @@ public final class Mensajes {
     //RegistroVista
     public static final String SUCCESS_COMPLETED_REGISTRATION = "Su solicitud de registro ha sido enviada. En menos de una semana, tendra una respuesta al correo especificado";
     public static final String SUCCESS_ACCOUNT_CREATED = "Cuenta activada exitosamente";
+    public static final String AUTOCOMPLETE_TEXT = "Su cédula se encuentra en nuestra base de datos. Su nombre, dirección y la razón social de su negocio han sido rellenados en el formulario";
 
     //SolicitudesVista
     public static final String SUCCESS_VALIDATION = "La solicitud puede ser aceptada";
