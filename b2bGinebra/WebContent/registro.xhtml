@@ -115,7 +115,8 @@
 
 		<div align="center">
 			<b:commandButton value="Registrar" look="primary" style="width: 20%;" 
-			                 ajax="true" onclick="onchangeDireccion();ajax:registroVista.registrar();" 
+			                 ajax="true" onclick="showSpinner();onchangeDireccion();ajax:registroVista.registrar();"
+							 onsuccess="hideSpinner();"
 			                 update="growl">
 				<!--  <f:ajax execute="@form" render="@none"/> -->
 			</b:commandButton>
@@ -136,7 +137,6 @@
 			    {
 					document.getElementById("input_formulario:direccion").value = document.getElementById("pac-input").value;
 				}
-				
 			}
 		</script>
 

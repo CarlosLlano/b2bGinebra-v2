@@ -11,8 +11,10 @@
 	<html>
 		<body>
 			<f:view>
-				<ui:composition>				
-						<!-- FOOTER -->
+				<ui:composition>
+					<div class="spinner-custom" id="spinner-custom"></div>
+
+					<!-- FOOTER -->
 						<div>
 							<footer style="#{configuracionVista.imagenFooter}">
 								<div class="row">
@@ -39,7 +41,20 @@
 								</div>
 							</footer>
 						</div>
-						<!-- FOOTER -->	
+						<!-- FOOTER -->
+						<script type="text/javascript">
+							function hideSpinner(){
+								if(document.getElementById("spinner-custom")){
+									document.getElementById("spinner-custom").style.display = 'none';
+								}
+							}
+							function showSpinner(){
+								if(document.getElementById("spinner-custom")){
+									document.getElementById("spinner-custom").style.display = 'block';
+								}
+							}
+						</script>
+
 				</ui:composition>
 			</f:view>
 		</body>
