@@ -1,21 +1,21 @@
 package co.b2bginebra.presentacion;
 
+import co.b2bginebra.logica.GestionCorreosLogica;
+import co.b2bginebra.logica.UsuarioLogica;
+import co.b2bginebra.modelo.Usuario;
+import co.b2bginebra.seguridad.JsfSecurityTools;
+import co.b2bginebra.utils.Mensajes;
+import net.bootsfaces.component.inputText.InputText;
+import net.bootsfaces.utils.FacesMessages;
+import org.apache.shiro.SecurityUtils;
+import org.primefaces.context.RequestContext;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import co.b2bginebra.logica.GestionCorreosLogica;
-import co.b2bginebra.utils.Mensajes;
-import org.primefaces.context.RequestContext;
-
-import co.b2bginebra.logica.UsuarioLogica;
-import co.b2bginebra.modelo.Usuario;
-import co.b2bginebra.seguridad.JsfSecurityTools;
-import net.bootsfaces.component.inputText.InputText;
-
-import java.util.*;
-import java.util.stream.Stream;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  * representa la vista para la gestion de informacion de un usuario
@@ -34,6 +34,8 @@ public class UsuarioVista
 	
 	//Errores
 	private String modalText;
+	//Eliminar
+    private String mensajeEliminarCuenta;
 	
 	private Usuario usuLogueado;
 	
@@ -60,8 +62,27 @@ public class UsuarioVista
     	    txtCorreo.setValue(usuLogueado.getCorreo());
     	    txtTelefono.setValue(usuLogueado.getTelefono());
 
+    	    mensajeEliminarCuenta = Mensajes.CONFIRM_REMOVAL_USER;
+
     }
-	
+
+    public void eliminarCuenta(){
+        try {
+            usuarioLogica.borrarUsuario(usuLogueado);
+
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            FacesMessages.info(Mensajes.USER_REMOVED);
+            externalContext.getFlash().setKeepMessages(true);
+            // cleanup user related session state
+            SecurityUtils.getSubject().logout();
+            externalContext.invalidateSession();
+            // -----------------------------------
+            externalContext.redirect("inicio.xhtml");
+
+        } catch (Exception e) {
+            mostrarMensaje("Ocurrio un error al borrar la cuenta. Intentelo más tarde");
+        }
+    }
 	
 	public void cambiarInformacionPersonal()
 	{
@@ -150,9 +171,6 @@ public class UsuarioVista
 	}
 
 
-	
-
-
 	public Usuario getUsuLogueado() {
 		return usuLogueado;
 	}
@@ -177,8 +195,9 @@ public class UsuarioVista
 	public void setModalText(String modalText) {
 		this.modalText = modalText;
 	}
-	
-	
 
+    public String getMensajeEliminarCuenta() {
+        return mensajeEliminarCuenta;
+    }
 }
 
