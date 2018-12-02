@@ -39,9 +39,10 @@ public class NegocioRegistradoDAO extends JpaDaoImpl<NegocioRegistrado, Long>{
 		}
 		
 		return respuesta;
-		
-	
-		
-	
     }
+
+    public void borrarTodos(){
+		String jpql = "DELETE FROM NegocioRegistrado";
+    	entityManager.createQuery(jpql).executeUpdate();
+	}
 }

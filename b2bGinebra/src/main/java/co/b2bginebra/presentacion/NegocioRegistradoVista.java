@@ -2,8 +2,7 @@ package co.b2bginebra.presentacion;
 
 import co.b2bginebra.logica.NegocioRegistradoLogica;
 import co.b2bginebra.modelo.NegocioRegistrado;
-
-import javax.annotation.PostConstruct;
+import net.bootsfaces.utils.FacesMessages;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -14,16 +13,32 @@ import java.util.List;
 @ViewScoped
 public class NegocioRegistradoVista {
 
-    private Part file;
-    private List<NegocioRegistrado> negociosRegistrados;
 
     @EJB
     private NegocioRegistradoLogica negocioRegistradoLogica;
 
+    private List<NegocioRegistrado> negociosRegistrados;
+    private Part file;
 
-    @PostConstruct
-    public void init(){
-        negociosRegistrados = negocioRegistradoLogica.consultarTodos();
+
+    public void cargarNegociosRegistrados(){
+        try {
+            List<NegocioRegistrado> negociosCargados = negocioRegistradoLogica.cargarArchivo(file);
+            negocioRegistradoLogica.validarAtributos(negociosCargados);
+            negocioRegistradoLogica.borrarTodosNegocioRegistrado();
+            for(NegocioRegistrado negocioRegistrado : negociosCargados){
+                negocioRegistradoLogica.crearNegocioRegistrado(negocioRegistrado);
+            }
+            negociosRegistrados = negociosCargados;
+            mostrarMensaje("Archivo cargado exitosamente");
+        } catch (Exception e) {
+            mostrarMensaje(e.getMessage());
+        }
+    }
+
+    public void mostrarMensaje(String mensaje)
+    {
+        FacesMessages.info(mensaje);
     }
 
     public Part getFile() {
@@ -35,6 +50,9 @@ public class NegocioRegistradoVista {
     }
 
     public List<NegocioRegistrado> getNegociosRegistrados() {
+        if(negociosRegistrados == null){
+            negociosRegistrados =  negocioRegistradoLogica.consultarTodos();
+        }
         return negociosRegistrados;
     }
 }
