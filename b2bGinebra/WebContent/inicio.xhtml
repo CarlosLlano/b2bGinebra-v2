@@ -13,10 +13,10 @@
 <f:event type="preRenderView" listener="#{login.checkAuthentication}" />
 
 	<h:form id="formulario">
-    
+
+    <p:growl id="top"/>
     <b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
 
-    
     <!--Login -->
     <div class="login-dark" style="#{configuracionVista.imagenInicio};
     								  background-position: center;

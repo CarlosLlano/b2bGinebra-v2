@@ -174,13 +174,14 @@ public class ConfiguracionVista
 			{
 				usuarioLogica.modificarUsuario(usuCambioPassword);
 				
-				ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();	
-	            externalContext.redirect("inicio.xhtml?faces-redirect=true");
+				ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+				FacesMessages.info("Contraseña cambiada exitosamente");
+                externalContext.getFlash().setKeepMessages(true);
+				externalContext.redirect("inicio.xhtml");
 			} 
 			catch (Exception e) 
 			{
 				mostrarMensaje(e.getMessage());
-				
 			}
 		}
 	}
