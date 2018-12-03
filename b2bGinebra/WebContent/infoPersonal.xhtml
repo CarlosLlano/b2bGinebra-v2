@@ -73,7 +73,9 @@
                             <div class="col-md-12 content-right">
                                 <b:commandButton value="Eliminar Cuenta" look="danger" onclick="$('.modalEliminar').modal()" type="button"/>
                                 <b:commandButton value="Guardar" look="primary" style="margin: auto; margin-right: 10px;"
-                                                 action="#{usuarioVista.cambiarInformacionPersonal}"/>
+                                                 action="#{usuarioVista.cambiarInformacionPersonal}"
+                                                 onclick="showSpinner();"
+                                                 onsuccess="hideSpinner();"/>
                             </div>
                         </div>
                         

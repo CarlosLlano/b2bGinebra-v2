@@ -32,11 +32,12 @@ public class UsuarioVista
 	private InputText txtTelefono;
 	
 	
-	//Errores
+	//Para mostrar errores
 	private String modalText;
-	//Eliminar
+	//mensaje mostrado cuando se quiere eliminar la cuenta
     private String mensajeEliminarCuenta;
-	
+
+    private Usuario usuarioRespaldo;
 	private Usuario usuLogueado;
 	
 	@EJB
@@ -50,7 +51,11 @@ public class UsuarioVista
     {   
     	
     	    usuLogueado = (Usuario) JsfSecurityTools.getfromSession("usuario");
-    	    
+    	    usuarioRespaldo = new Usuario();
+            usuarioRespaldo.setTelefono(usuLogueado.getTelefono());
+            usuarioRespaldo.setDireccion(usuLogueado.getDireccion());
+            usuarioRespaldo.setCorreo(usuLogueado.getCorreo());
+
     	    txtNombre = new InputText();
     	    txtDireccion = new InputText();
     	    txtCorreo = new InputText();
@@ -92,6 +97,9 @@ public class UsuarioVista
 		} 
 		catch (Exception e) 
 		{
+		    usuLogueado.setCorreo(usuarioRespaldo.getCorreo());
+		    usuLogueado.setDireccion(usuarioRespaldo.getDireccion());
+		    usuLogueado.setTelefono(usuarioRespaldo.getTelefono());
 			mostrarMensaje(e.getMessage());
 		}
 		
@@ -100,11 +108,6 @@ public class UsuarioVista
 	public void validarYNotificarCambios() throws Exception{
 
 		String cambios = "";
-		if(!usuLogueado.getNombre().equals(txtNombre.getValue().toString()))
-		{
-			cambios+= String.format("Nombre: %s --> %s %s",usuLogueado.getNombre(),txtNombre.getValue().toString(),System.lineSeparator());
-			usuLogueado.setNombre(txtNombre.getValue().toString());
-		}
 		if(!usuLogueado.getCorreo().equals(txtCorreo.getValue().toString()))
 		{
 			cambios+= String.format("Correo: %s --> %s %s",usuLogueado.getCorreo(),txtCorreo.getValue().toString(),System.lineSeparator());
