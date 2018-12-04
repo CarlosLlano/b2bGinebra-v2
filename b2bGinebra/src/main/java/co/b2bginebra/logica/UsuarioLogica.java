@@ -49,13 +49,11 @@ public class UsuarioLogica
 		{
 			throw new Exception("La contraseña es obligatoria");
 		}
-		else{
-		    //encriptacion de la contraseña
-            String password = usuario.getPassword();
-            String encryptedPassword = passwordEncoder.encode(password);
-            usuario.setPassword(encryptedPassword);
-        }
 	}
+
+	public String encriptarPassword(String password){
+        return passwordEncoder.encode(password);
+    }
 	
 	public void crearUsuario(Usuario usuario) throws Exception
 	{
