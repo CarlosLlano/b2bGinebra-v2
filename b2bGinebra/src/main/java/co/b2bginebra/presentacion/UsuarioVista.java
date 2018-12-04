@@ -1,21 +1,21 @@
 package co.b2bginebra.presentacion;
 
+import co.b2bginebra.logica.GestionCorreosLogica;
+import co.b2bginebra.logica.UsuarioLogica;
+import co.b2bginebra.modelo.Usuario;
+import co.b2bginebra.seguridad.JsfSecurityTools;
+import co.b2bginebra.utils.Mensajes;
+import net.bootsfaces.component.inputText.InputText;
+import net.bootsfaces.utils.FacesMessages;
+import org.apache.shiro.SecurityUtils;
+import org.primefaces.context.RequestContext;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import co.b2bginebra.logica.GestionCorreosLogica;
-import co.b2bginebra.utils.Mensajes;
-import org.primefaces.context.RequestContext;
-
-import co.b2bginebra.logica.UsuarioLogica;
-import co.b2bginebra.modelo.Usuario;
-import co.b2bginebra.seguridad.JsfSecurityTools;
-import net.bootsfaces.component.inputText.InputText;
-
-import java.util.*;
-import java.util.stream.Stream;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  * representa la vista para la gestion de informacion de un usuario
@@ -32,9 +32,12 @@ public class UsuarioVista
 	private InputText txtTelefono;
 	
 	
-	//Errores
+	//Para mostrar errores
 	private String modalText;
-	
+	//mensaje mostrado cuando se quiere eliminar la cuenta
+    private String mensajeEliminarCuenta;
+
+    private Usuario usuarioRespaldo;
 	private Usuario usuLogueado;
 	
 	@EJB
@@ -48,7 +51,11 @@ public class UsuarioVista
     {   
     	
     	    usuLogueado = (Usuario) JsfSecurityTools.getfromSession("usuario");
-    	    
+    	    usuarioRespaldo = new Usuario();
+            usuarioRespaldo.setTelefono(usuLogueado.getTelefono());
+            usuarioRespaldo.setDireccion(usuLogueado.getDireccion());
+            usuarioRespaldo.setCorreo(usuLogueado.getCorreo());
+
     	    txtNombre = new InputText();
     	    txtDireccion = new InputText();
     	    txtCorreo = new InputText();
@@ -60,8 +67,27 @@ public class UsuarioVista
     	    txtCorreo.setValue(usuLogueado.getCorreo());
     	    txtTelefono.setValue(usuLogueado.getTelefono());
 
+    	    mensajeEliminarCuenta = Mensajes.CONFIRM_REMOVAL_USER;
+
     }
-	
+
+    public void eliminarCuenta(){
+        try {
+            usuarioLogica.borrarUsuario(usuLogueado);
+
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            FacesMessages.info(Mensajes.USER_REMOVED);
+            externalContext.getFlash().setKeepMessages(true);
+            // cleanup user related session state
+            SecurityUtils.getSubject().logout();
+            externalContext.invalidateSession();
+            // -----------------------------------
+            externalContext.redirect("inicio.xhtml");
+
+        } catch (Exception e) {
+            mostrarMensaje("Ocurrio un error al borrar la cuenta. Intentelo más tarde");
+        }
+    }
 	
 	public void cambiarInformacionPersonal()
 	{
@@ -71,6 +97,9 @@ public class UsuarioVista
 		} 
 		catch (Exception e) 
 		{
+		    usuLogueado.setCorreo(usuarioRespaldo.getCorreo());
+		    usuLogueado.setDireccion(usuarioRespaldo.getDireccion());
+		    usuLogueado.setTelefono(usuarioRespaldo.getTelefono());
 			mostrarMensaje(e.getMessage());
 		}
 		
@@ -79,11 +108,6 @@ public class UsuarioVista
 	public void validarYNotificarCambios() throws Exception{
 
 		String cambios = "";
-		if(!usuLogueado.getNombre().equals(txtNombre.getValue().toString()))
-		{
-			cambios+= String.format("Nombre: %s --> %s %s",usuLogueado.getNombre(),txtNombre.getValue().toString(),System.lineSeparator());
-			usuLogueado.setNombre(txtNombre.getValue().toString());
-		}
 		if(!usuLogueado.getCorreo().equals(txtCorreo.getValue().toString()))
 		{
 			cambios+= String.format("Correo: %s --> %s %s",usuLogueado.getCorreo(),txtCorreo.getValue().toString(),System.lineSeparator());
@@ -150,9 +174,6 @@ public class UsuarioVista
 	}
 
 
-	
-
-
 	public Usuario getUsuLogueado() {
 		return usuLogueado;
 	}
@@ -177,8 +198,9 @@ public class UsuarioVista
 	public void setModalText(String modalText) {
 		this.modalText = modalText;
 	}
-	
-	
 
+    public String getMensajeEliminarCuenta() {
+        return mensajeEliminarCuenta;
+    }
 }
 

@@ -71,7 +71,11 @@
 
                         <div class="row">
                             <div class="col-md-12 content-right">
-                                <b:commandButton value="Guardar" look="primary" style="margin: auto;" action="#{usuarioVista.cambiarInformacionPersonal}"/>    
+                                <b:commandButton value="Eliminar Cuenta" look="danger" onclick="$('.modalEliminar').modal()" type="button"/>
+                                <b:commandButton value="Guardar" look="primary" style="margin: auto; margin-right: 10px;"
+                                                 action="#{usuarioVista.cambiarInformacionPersonal}"
+                                                 onclick="showSpinner();"
+                                                 onsuccess="hideSpinner();"/>
                             </div>
                         </div>
                         
@@ -80,7 +84,18 @@
 							<f:facet name="footer">
 								<b:button value="Aceptar" look="primary" dismiss="modal" />
 							</f:facet>
-					  </b:modal>
+                       </b:modal>
+                        <b:modal id="modalEliminar" title="Eliminar" styleClass="modalEliminar" closable="false" close-on-escape="false" backdrop="false" size="modal-sm">
+                            <h5>#{usuarioVista.mensajeEliminarCuenta}</h5>
+                            <f:facet name="footer">
+                                <b:commandButton value="Continuar" look="primary"
+                                                 action="#{usuarioVista.eliminarCuenta}"
+                                                 onsuccess="$('.modalEliminar').modal('hide');" />
+                                <b:commandButton value="Cancelar" look="primary"
+                                                 onclick="$('.modalEliminar').modal('hide');"
+                                                 type="button"/>
+                            </f:facet>
+                        </b:modal>
                         
                        
 				
@@ -91,11 +106,8 @@
         </div>
     </div>
     
-    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
-    <script src="assets/js/Profile-Edit.js"></script>
-    <script src="assets/js/Sidebar-Menu.js"></script>
+
 
 </h:form>
 </f:view>
