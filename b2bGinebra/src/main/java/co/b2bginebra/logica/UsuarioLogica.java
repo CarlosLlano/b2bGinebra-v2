@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 
 import co.b2bginebra.dao.UsuarioDAO;
 import co.b2bginebra.modelo.Usuario;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Stateless
 public class UsuarioLogica
@@ -14,7 +16,8 @@ public class UsuarioLogica
 	
 	@EJB
 	private UsuarioDAO usuarioDAO;
-	
+
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public void validarAtributos(Usuario usuario) throws Exception
 	{
@@ -46,6 +49,12 @@ public class UsuarioLogica
 		{
 			throw new Exception("La contraseña es obligatoria");
 		}
+		else{
+		    //encriptacion de la contraseña
+            String password = usuario.getPassword();
+            String encryptedPassword = passwordEncoder.encode(password);
+            usuario.setPassword(encryptedPassword);
+        }
 	}
 	
 	public void crearUsuario(Usuario usuario) throws Exception
@@ -97,22 +106,18 @@ public class UsuarioLogica
 		Usuario usuario = usuarioDAO.consultarUsuarioPorIdentificacion(usuLogin);
 		if(usuario==null)
 		{
-			
 			throw new Exception("Usuario o password no valido");
 		}
-		else if(usuario.getPassword().equals(usuClave)==false)
+		else if(!passwordEncoder.matches(usuClave, usuario.getPassword()))
 		{
-			
 			throw new Exception("Usuario o password no valido");
 		}
 		else if(usuario.getEstado().getNombre().equals("Activo")==false)
 		{
-			
 			throw new Exception("La cuenta esta bloqueada");
 		}
 		else
 		{
-			
 			return usuario;
 		}
 	}
