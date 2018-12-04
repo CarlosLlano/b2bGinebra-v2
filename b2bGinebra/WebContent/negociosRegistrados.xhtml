@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org">
+<h:body>
+<ui:composition template="/WEB-INF/plantilla/template.xhtml" >
+<ui:define name="body">
+<f:view>
+	<h:form id="formulario" enctype="multipart/form-data">
+    
+    <p:growl id="top"/>
+    <b:growl id="growl" globalOnly="true" showDetail="true" severity="info,warn" style="font-size: 20pt" allowDismiss="true"/>
+
+    <div>
+        <div class="container">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Listado de negocios oficialmente registrados en el municipio</h2>
+                 </div>
+            </div>
+
+			<br/>
+			<br/>
+			<br/>
+
+			<div class="col-sm-6 col-md-4 col-md-offset-4">
+
+				<b:panel title="Cargar negocios" look="primary"
+						 collapsible="false" id="panel" class="panel"
+						 tooltip="Debe cargar un archivo excel (.xls, .xlsx) con los datos de los negocios">
+					<h:inputFile id="file" value="#{negocioRegistradoVista.file}" style="font-size:11pt;color:#333333;" />
+					<br/>
+					<br/>
+					<b:commandButton value="Cargar" look="primary" style="margin-left: 10pt;"
+									 action="#{negocioRegistradoVista.cargarNegociosRegistrados}"
+                                     onclick="showSpinner();"
+									 update="growl @(.editableTable)"
+                                     onsuccess="hideSpinner();"/>
+				</b:panel>
+
+			</div>
+
+            <div class="container">
+			        <b:dataTable id="tabla" value="#{negocioRegistradoVista.negociosRegistrados}" var="negocioReg" class="editableTable"
+						columnVisibility="true" excel="true" csv="true" pdf="true"
+                        lang="es">
+						<b:dataTableColumn value="#{negocioReg.razonSocial}" label="Razón Social"/>
+						<b:dataTableColumn value="#{negocioReg.direccion}" label="Dirección" />
+						<b:dataTableColumn value="#{negocioReg.docRepr}" label="Documento Representante"/>
+						<b:dataTableColumn value="#{negocioReg.nombreRepr}" label="Nombre Representante"/>
+					</b:dataTable>
+			</div>
+        </div>
+    </div>
+    
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	
+	
+	
+	</h:form>
+</f:view>
+</ui:define>
+</ui:composition>
+</h:body>
+
+
+</html>
