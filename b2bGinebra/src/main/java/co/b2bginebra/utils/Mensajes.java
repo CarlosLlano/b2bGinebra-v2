@@ -12,7 +12,7 @@ public final class Mensajes {
     public static final String INVALID_PASSWORD = "Las contraseñas no coinciden";
     public static final String USER_REMOVED = "Usuario eliminado correctamente";
     public static final String ERROR_REMOVING_USER = "Ocurrio un error al borrar al usuario";
-    public static final String CONFIRM_REMOVAL_USER = "Tenga en cuenta que se borrará toda la información del usuario y no podrá recuperar esa información. ¿Desea continuar?";
+    public static final String CONFIRM_REMOVAL_USER = "Tenga en cuenta que se borrará toda la información del usuario, junto con la del negocio asociado, y no podrá recuperar esa información. ¿Desea continuar?";
     public static final String USER_NOT_SELECTED = "Debe seleccionar un usuario";
 
     //ContactoVista
