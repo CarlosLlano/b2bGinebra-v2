@@ -162,14 +162,14 @@ public class ConfiguracionVista
 	
 	public void cambiarPassword()
 	{
-		
 		if(txtNuevoPassword.equals(txtNuevoPasswordConfirmar)==false)
 		{
 			mostrarMensaje(Mensajes.INVALID_PASSWORD);
 		}
 		else
 		{
-			usuCambioPassword.setPassword(txtNuevoPassword);
+			String encryptedPassword = usuarioLogica.encriptarPassword(txtNuevoPassword);
+			usuCambioPassword.setPassword(encryptedPassword);
 			try 
 			{
 				usuarioLogica.modificarUsuario(usuCambioPassword);
