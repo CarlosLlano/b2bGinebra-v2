@@ -46,6 +46,7 @@ public class ContactoVista
 			} catch (Exception e) {
 				limpiar();
 				mostrarMensaje(Mensajes.ERROR_MESSAGE);
+				e.printStackTrace();
 			}
 
 

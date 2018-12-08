@@ -68,7 +68,10 @@
 							<b:inputTextarea placeholder="Escribe tu mensaje..." value="#{contactoVista.mensaje}" />
 							<i class="form-control-feedback fa fa-pencil" aria-hidden="true"></i>
 						</div>
-						<b:commandButton look="success" value="Enviar" action="#{contactoVista.enviarCorreoAction}" />
+						<b:commandButton look="success" value="Enviar"
+										 action="#{contactoVista.enviarCorreoAction}"
+										 onclick="showSpinner();"
+										 onsuccess="hideSpinner();"/>
 						<b:modal id="modalCamposEnBlanco" title="Mensaje" styleClass="modalPseudoClass" losable="false"  close-on-escape="false" backdrop="false">
 							<h3>#{contactoVista.modalText}</h3>
 							<f:facet name="footer">
