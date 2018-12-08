@@ -40,7 +40,18 @@
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${apache-shiro.version}</version>
 		</dependency>
-		<!-- Security -->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>5.1.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- Security -->
 
 		<!-- Frameworks para frontend -->
 		<dependency>

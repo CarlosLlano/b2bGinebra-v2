@@ -125,8 +125,11 @@ public class RegistroVista
 			//validacion
 			usuarioLogica.validarAtributos(usuNuevo);
 			negocioLogica.validarAtributos(negocioNuevo);
-			
-			
+
+			//encriptacion de la contraseña
+			String passwordEncrypted = usuarioLogica.encriptarPassword(usuNuevo.getPassword());
+			usuNuevo.setPassword(passwordEncrypted);
+
 			negocioNuevo.setUsuario(usuNuevo);
 
 			//se busca usuario-negocio en la tabla de negocios registrados

@@ -162,7 +162,7 @@ CREATE TABLE USUARIO
     TELEFONO         Varchar (50) NOT NULL ,
     DIRECCION        Varchar (50) NOT NULL ,
     CORREO           Varchar (50) NOT NULL ,
-    PASSWORD         Varchar (50) NOT NULL ,
+    PASSWORD         Varchar (60) NOT NULL ,
     ESTADO_ID_ESTADO numeric (2) NOT NULL
   ) ;
 ALTER TABLE USUARIO ADD CONSTRAINT USUARIO_PK PRIMARY KEY ( ID_USUARIO ) ;
