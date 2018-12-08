@@ -7,9 +7,10 @@ RUN mkdir -p ${postgres_module_dir}
 ADD module.xml ${postgres_module_dir}
 ADD postgresql-9.4-1201.jdbc41.jar ${postgres_module_dir}
 
-#configuracion del datasource
+#configuracion del servidor (datasource, https, entre otros)
 ENV config_dir=/opt/jboss/wildfly/standalone/configuration
 ADD standalone.xml ${config_dir}
+ADD admin.keystore ${config_dir}
 
 #creacion del usuario administrador
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
