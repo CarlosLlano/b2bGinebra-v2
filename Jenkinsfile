@@ -18,7 +18,7 @@ node{
              sh 'docker-compose rm -f' //remove existing containers
              sh 'docker volume rm deployment_pg_data' //remove database volume, remove this part in production
              sh 'docker-compose up -d --build' //redeploy containers
-             sh 'docker rmi $(docker images -f dangling=true -q)' //remove unused images
+             sh 'docker images -q -f dangling=true | xargs -I ARGS docker rmi -f ARGS' //remove unused images
         }
     }
 }
