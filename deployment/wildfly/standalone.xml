@@ -46,7 +46,7 @@
             <security-realm name="ApplicationRealm">
                 <server-identities>
                     <ssl>
-                        <keystore path="admin.keystore" relative-to="jboss.server.config.dir" keystore-password="administrador" alias="admin" key-password="administrador"/>
+                        <keystore path="admin.keystore" relative-to="jboss.server.config.dir" keystore-password="b2bginebra" alias="admin" key-password="b2bginebra"/>
                     </ssl>
                 </server-identities>
                 <authentication>
