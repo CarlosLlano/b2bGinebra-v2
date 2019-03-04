@@ -390,7 +390,7 @@
             <filters>
                 <response-header name="server-header" header-name="Server" header-value="WildFly/9"/>
                 <response-header name="x-powered-by-header" header-name="X-Powered-By" header-value="Undertow/1"/>
-                <rewrite name="http-to-https" target="https://${env.SERVER_IP_OR_NAME}:8443%U" redirect="true"/>
+                <rewrite name="http-to-https" target="https://${env.SERVER_IP_OR_NAME}:443%U" redirect="true"/>
             </filters>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:2.0">
