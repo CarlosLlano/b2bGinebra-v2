@@ -390,7 +390,7 @@
             <filters>
                 <response-header name="server-header" header-name="Server" header-value="WildFly/9"/>
                 <response-header name="x-powered-by-header" header-name="X-Powered-By" header-value="Undertow/1"/>
-                <rewrite name="http-to-https" target="https://${env.SERVER_IP_OR_NAME}:443%U" redirect="true"/>
+                <rewrite name="http-to-https" target="https://${env.SERVER_IP_OR_NAME}:8443%U" redirect="true"/>
             </filters>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:2.0">
@@ -423,7 +423,7 @@
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
         <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
         <socket-binding name="http" port="${jboss.http.port:8080}"/>
-        <socket-binding name="https" port="${jboss.https.port:443}"/>
+        <socket-binding name="https" port="${jboss.https.port:8443}"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">
